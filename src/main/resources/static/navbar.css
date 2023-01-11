@@ -1,0 +1,102 @@
+.socio-logo{
+    height: 1.875rem;
+    width: 1.875rem;
+}
+.left-wrapper > ul > li{
+    list-style-type: none;
+    font-size: 1.063rem;
+    font-weight: bold;
+}
+@media only screen and (min-width: 992px) {
+    #logo-title{
+        display: none;
+    }
+    .left-wrapper > ul{
+        display: flex;
+        justify-content: space-around;
+        margin: 0;
+        padding: 0;
+    }
+    .center-wrapper{
+        text-align: center;
+    }
+    .center-wrapper > a{
+        font-size: 1.875rem;
+        font-weight: 500;
+    }
+    .right-wrapper{
+        display: flex;
+        justify-content: space-between;
+        margin: 0;
+    }
+    .right-wrapper > .languages{
+        margin: 0 1.25rem 0 0;
+    }
+    .right-wrapper > .languages > a{
+        text-decoration: none;
+        font-weight: 300;
+        color: darkgrey;
+        margin: 0 0.375rem;
+    }
+    .right-wrapper > .socio-logos{
+        width: 8.75rem;
+        display: flex;
+        justify-content: space-around;
+        margin: 0 0.375rem;
+    }
+    .right-wrapper .socio-logo:hover{
+        height: 2.2rem;
+        width: 2.2rem;
+    }
+}
+@media only screen and (max-width: 991px) {
+    .center-wrapper > a{
+        display: none;
+    }
+    .navbar-brand{
+        margin-left: 1.875rem;
+        font-size: 1.563rem;
+        font-weight: 500;
+    }
+    .left-wrapper > ul > li{
+        margin-top: 1.25rem;
+        margin-left: 1.875rem;
+        font-size: 1.25rem;
+        color: rgb(43, 43, 48);
+    }
+    .right-wrapper{
+        margin-top: 1.875rem;
+    }
+    .right-wrapper > #search-place{
+        margin: 3.125rem 0rem 3.125rem 1.875rem;
+    }
+    .right-wrapper > .socio-logos{
+        margin-left: 1.875rem;
+        margin-top: 1.875rem;
+        width: 10rem;
+        display: flex;
+        justify-content: space-between;
+    }
+    .right-wrapper .socio-logo{
+        height: 2.5rem;
+        width: 2.5rem;
+    }
+    .right-wrapper .socio-logo:hover{
+        height: 2.8rem;
+        width: 2.8rem;
+    }
+    .right-wrapper > .languages{
+        margin-top: 1.875rem;
+        margin-left: 1.25rem;
+        display: flex;
+        justify-content: space-between;
+        width: 3.125rem;
+    }
+    .right-wrapper > .languages > a{
+        text-decoration: none;
+        font-size: 1.25rem;
+        font-weight: 300;
+        color: darkgrey;
+        margin: 0 0.938rem;
+    }
+}

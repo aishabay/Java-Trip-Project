@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout/main.html">
+
+    <div layout:fragment="content" class="bg-dark" style="min-height: 100vh; min-width: 100vw;">
+        <div class="row">
+            <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-8 col-sm-9 col-10 mx-auto">
+                <div class="card mb-5" style="margin-top: 8rem;">
+                    <h5 class="card-header text-center p-3">REGISTRATION</h5>
+                    <div class="card-body p-5">
+                        <form th:action="@{'/register'}" method="post">
+                            <div class="row">
+                                <div class="col-12">
+                                    <label>FULL NAME: </label>
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-12">
+                                    <input type="text" name="user_full_name" class="form-control" required placeholder="Full Name...">
+                                </div>
+                            </div>
+                            <div class="row mt-4">
+                                <div class="col-12">
+                                    <label>EMAIL: </label>
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-12">
+                                    <input type="email" name="user_email" class="form-control" required placeholder="Email...">
+                                </div>
+                            </div>
+                            <div class="row mt-4">
+                                <div class="col-12">
+                                    <label>PASSWORD: </label>
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-12">
+                                    <input type="password" name="user_password" class="form-control" required placeholder="Password...">
+                                </div>
+                            </div>
+                            <div class="row mt-4">
+                                <div class="col-12">
+                                    <label>REPEAT PASSWORD: </label>
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-12">
+                                    <input type="password" name="user_re_password" class="form-control" required placeholder="Repeat Password...">
+                                </div>
+                            </div>
+                            <div class="row mt-4">
+                                <div class="col-12">
+                                    <button class="btn btn-success">SIGN UP</button>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="alert alert-success alert-dismissible fade show mt-4" role="alert" th:if="${param.success!=null}">
+                            Congratulations! Your account has successfully been created.
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        <div class="alert alert-danger alert-dismissible fade show mt-4" role="alert" th:if="${param.error!=null}">
+                            Try again! Email is already in use or passwords don't match.
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</html>

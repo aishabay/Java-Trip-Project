@@ -1,0 +1,70 @@
+<nav class="navbar navbar-expand-lg fixed-top navbar-dark" id="navbar-bg">
+    <div class="container-fluid p-3">
+        <a id="logo-title" class="navbar-brand" th:href="@{'/'}">Asia Trip</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            MENU <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="left-wrapper col-5 fs-5">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" th:href="@{'/'}">HOME</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link active dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            TRIPS
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item ps-3" th:href="@{'/tour-list'}">Tours</a></li>
+                            <li><a class="dropdown-item ps-3" href="#">Excursions</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link active dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" sec:authorize = "isAuthenticated()">
+                            <span th:text="${#authentication.principal.fullName}"></span>
+                        </a>
+                        <a class="nav-link active dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" sec:authorize = "isAnonymous()">
+                            <span>ACCOUNT</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{'/signup'}" sec:authorize = "isAnonymous()">Sign up</a></li>
+                            <li><a class="dropdown-item" th:href="@{'/signin'}" sec:authorize = "isAnonymous()">Sign in</a></li>
+                            <li sec:authorize = "isAuthenticated()"><a class="dropdown-item" th:href="@{'/profile'}">Profile</a></li>
+                            <li sec:authorize = "hasAnyRole('ROLE_ADMIN')"><a class="dropdown-item" th:href="@{'/admin'}">Admin Panel</a></li>
+                            <li sec:authorize = "isAuthenticated()"><hr class="dropdown-divider"></li>
+                            <li sec:authorize = "isAuthenticated()">
+                                <a class="dropdown-item" href="JavaScript:void(0)" onclick="logoutForm.submit()">
+                                    Log out
+                                </a>
+                            </li>
+                        </ul>
+                        <form th:action="@{'/signout'}" method="post" id="logoutForm"></form>
+                    </li>
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" th:href="@{'/contacts'}">CONTACTS</a></li>
+                </ul>
+            </div>
+            <div class="center-wrapper col-2">
+                <a class="navbar-brand">Asia Trip</a>
+            </div>
+            <div class="right-wrapper col-xxl-5 col-xl-5 col-lg-5 col-sm-7 col-10">
+                <form id="search-place" class="d-flex" role="search" th:action="@{'/search'}" method="get">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="key">
+                    <button class="btn btn-outline-light" type="submit">Search</button>
+                </form>
+                <div class="socio-logos">
+                    <a href="#">
+                        <img class="socio-logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/2048px-Instagram_logo_2016.svg.png" alt="">
+                    </a>
+                    <a href="#">
+                        <img class="socio-logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Facebook_Logo_%282019%29.png/768px-Facebook_Logo_%282019%29.png" alt="">
+                    </a>
+                    <a href="#">
+                        <img class="socio-logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Telegram_logo.svg/2048px-Telegram_logo.svg.png" alt="">
+                    </a>
+                </div>
+                <div class="languages">
+                    <a href="#">EN</a>
+                    <a href="#">RU</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>

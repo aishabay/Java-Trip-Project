@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout/main.html">
+
+    <div layout:fragment="content">
+        <header class="header contacts-header mb-5">
+            <p class="text-white">Contacts</p>
+            <div class="cover"></div>
+        </header>
+
+        <section class="mt-5">
+            <div class="row col-6 d-flex justify-content-center mx-auto">
+                <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-sm-12 d-flex flex-column align-items-center my-3">
+                    <img src="https://www.iconpacks.net/icons/2/free-location-pointer-icon-2961-thumb.png" alt="" style="width: 5rem; height: 5rem;">
+                    <p class="fw-bold fs-5 mt-3">Address</p>
+                    <p class="text-secondary text-center m-0">Kazakhstan, Almaty city, Abay avenue 111</p>
+                </div>
+                <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-sm-12 d-flex flex-column align-items-center my-3">
+                    <img src="https://cdn-icons-png.flaticon.com/512/455/455705.png" alt="" style="width: 5rem; height: 5rem;">
+                    <p class="fw-bold fs-5 mt-3">Phone</p>
+                    <p class="text-secondary text-center m-0">+7 700 111 2233</p>
+                </div>
+                <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-sm-12 d-flex flex-column align-items-center my-3">
+                    <img src="https://cdn-icons-png.flaticon.com/512/561/561127.png" alt="" style="width: 5rem; height: 5rem;">
+                    <p class="fw-bold fs-5 mt-3">Email</p>
+                    <p class="text-secondary text-center m-0">asiatrip@gmail.com</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="row m-0">
+                <h2 class="text-center text-dark my-5 fs-1 fw-bold">CONTACT US</h2>
+            </div>
+            <form id="myForm">
+                <div class="row mb-4 p-4 mx-5">
+                    <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 d-flex flex-column justify-content-between">
+                        <input id="name" type="text" class="form-control p-3 my-2 border-secondary" required placeholder="Your Name...">
+                        <input id="email" type="email" class="form-control p-3 my-2 border-secondary" required placeholder="Your Email...">
+                        <input id="number" type="number" class="form-control p-3 my-2 border-secondary" required placeholder="Your Phone Number..." name="">
+                    </div>
+                    <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                        <textarea id="message" class="border-secondary rounded-2 p-3 w-100 h-100" name=""  placeholder="Your Message..." required></textarea>
+                    </div>
+                    <div class="row col-xxl-2 col-xl-2 col-lg-3 col-md-3 col-sm-4 col-6 mx-auto my-3">
+                        <button class="btn btn-sm mt-4 p-3 text-white fw-bold mx-auto rounded-5" type="submit" style="background-color: rgb(24, 178, 255);">
+                            SEND
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </section>
+
+        <div class="map row col-6 mx-auto mb-5">
+            <!-- <iframe src="https://maps.google.com/maps?q=Nazarbayev%20university,%20Nur-Sultan&t=&z=13&ie=UTF8&iwloc=&output=embed"
+                    frameborder="0" scrolling="no" marginheight="0" marginwidth="0">
+            </iframe> -->
+            <iframe class="rounded-5" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d11626.634876699269!2d76.9066824!3d43.23761455!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3883693d77a95ead%3A0x320bc1274fae5f7!2sAlatau!5e0!3m2!1sen!2skz!4v1672827330597!5m2!1sen!2skz" width="400" height="400" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+    </div>
+
+</html>

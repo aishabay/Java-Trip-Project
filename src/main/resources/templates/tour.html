@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout/main.html">
+
+    <div layout:fragment="content">
+        <header class="header tour-header">
+            <p class="text-white">Tour to</p>
+            <p class="text-white">Kolsay Lakes</p>
+            <div class="cover"></div>
+        </header>
+
+        <section class="description mb-5">
+            <div class="row">
+                <div class="col-xxl-8 col-xl-8 col-lg-9 col-sm-10 col-10 mx-auto">
+                    <h1 class="fw-bold fs-2 my-5 text-center">Individual tour for <span>2 days</span> <span>Kolsay, Kayindy, Charyn</span></h1>
+                    <p class="fw-lighter fs-5">Этот двухдневный тур, дает возможность посетить сразу три заповедных места Чарынский каньон, Озеро Кольсай и Озеро Каинды. </p>
+                    <p class="fw-lighter fs-5">Чарынский каньон – младший брат Гранд каньона, образовался в эпоху палеогена, в результате разлома земной Коры. Расположен в отрогах Тянь-Шаня,в 240км от города Алматы. Чарынскому каньону насчитывают более 12 миллионов лет, его протяженность составляет 154 км вдоль реки Чарын,а протяженность реки 360км. Самым популярным местом среди туристов считается долина замков, его отвесные скалы высота которых достигает от 150 до 300м, завораживают всех, кто посещает это место. </p>
+                    <p class="fw-lighter fs-5">Кольсайские озера – включает в себя 3 озера Кольсай 1 (Саты) – 1000м, Кольсай 2 (Мынжыглы)- 2500м, Кольсай 3 (Верхний Кольсай) -2700м над уровнем моря. Расположены в Северном Тянь-Шане в ущелье Кольсай, которое соединяет хребты Кунгей Алатау и Заилийского алатау. Находится в 330км от города Алматы и всего в 10км севернее от границы с соседним Киргизстаном. Озеро окружено горами, которые покрыты хвойными лесами Тянь-Шаньской ели. Глубина в некоторых местах достигает 80м, температура воды не превышает 10 градусов в жаркое время года. В озере Кольсай водится радужная форель. </p>
+                    <p class="fw-lighter fs-5">Озеро Каинды – Неподалеку от озера находится березавая роща, в честь которой и названно это озеро Березовым . Озеро Каинды образовалось в 1911 году после Кеминского землетрясения, но нынешний облик, оно приобрело лишь в конце 80-х годов прошлого столетья, после сильного паводка. Озеро длиной 400м находится среди хвойного леса в одном из ущелий Кунгей Алатау на высоте 1667м над уровнем моря. Глубина озера достигает 30м. Особенностью озера Каинды являются затопленные елеи, а низкая температура воды в озере, дает елям возможность, сохранить свой первоначальный вид до нашего времени.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="slider my-5">
+            <div class="row">
+                <div class="col-xxl-7 col-xl-8 col-lg-8 col-md-9 col-sm-10 col-11 mx-auto">
+                    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
+                        <div class="carousel-indicators">
+                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                        </div>
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img src="https://wallpaperaccess.com/full/721192.jpg" class="d-block w-100" alt="...">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="https://wallpaperaccess.com/full/721192.jpg" class="d-block w-100" alt="...">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="https://wallpaperaccess.com/full/721192.jpg" class="d-block w-100" alt="...">
+                            </div>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="places py-3">
+            <div class="row">
+                <hr class="col-12 mx-auto w-50">
+                <h1 class="fs-1 fw-semibold text-center my-5">During this tour you will see:</h1>
+                <div class="row col-xxl-4 col-xl-5 col-lg-6 col-md-6 col-sm-8 col-5 mx-auto pt-3 mb-5">
+                    <div class="col-xxl-6 col-xl-6 col-lg-6 col-sm-6 col-12 fw-bold fs-5 mb-3">
+                        <img src="https://static.thenounproject.com/png/1630803-200.png" alt="" style="height: 3rem; width: 3rem;">
+                        <span class="ms-3">Charyn</span>
+                    </div>
+                    <div class="col-xxl-6 col-xl-6 col-lg-6 col-sm-6 col-12 fw-bold fs-5 mb-3">
+                        <img src="https://static.thenounproject.com/png/1630803-200.png" alt="" style="height: 3rem; width: 3rem;">
+                        <span class="ms-3">Charyn</span>
+                    </div>
+                    <div class="col-xxl-6 col-xl-6 col-lg-6 col-sm-6 col-12 fw-bold fs-5 mb-3">
+                        <img src="https://static.thenounproject.com/png/1630803-200.png" alt="" style="height: 3rem; width: 3rem;">
+                        <span class="ms-3">Charyn</span>
+                    </div>
+                    <div class="col-xxl-6 col-xl-6 col-lg-6 col-sm-6 col-12 fw-bold fs-5 mb-3">
+                        <img src="https://static.thenounproject.com/png/1630803-200.png" alt="" style="height: 3rem; width: 3rem;">
+                        <span class="ms-3">Charyn</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-5">
+                <hr class="col-12 mx-auto w-50">
+            </div>
+        </section>
+
+        <section class="prices bg-light">
+            <div class="row">
+                <h1 class="fs-1 fw-semibold text-center my-5">Prices of the tour</h1>
+                <hr class="col-6 mx-auto">
+            </div>
+        </section>
+
+        <section class="mt-5">
+            <div class="row col-8 mx-auto bg-light mb-5 p-3 rounded-4">
+                <form action="/addComment" method="post" sec:authorize = "isAuthenticated()">
+                    <input type="hidden" value="<%=newsDetails.getId()%>" name="news_id">
+                    <div class="col-12 d-flex align-items-center">
+                        <div class="col-11">
+                                    <textarea class="form-control me-5 rounded-5 p-4 mt-3" name="comment" rows="1" placeholder="Enter your comment..."
+                                              style="min-height: 74px;"></textarea>
+                        </div>
+                        <div class="col-1 m-0">
+                            <button class="btn btn-lg fs-2 text-secondary">&#10148;</button>
+                        </div>
+                    </div>
+                </form>
+
+<!--                <h4 class="mt-3 mb-4">Comments (<span th:text="${'countComments'}"></span>):</h4>-->
+<!--                <div class="list-group mb-4" th:each="c : ${comments}">-->
+
+<!--                    <a href="JavaScript:void(0)" class="list-group-item list-group-item-action">-->
+<!--                        <div class="d-flex w-100 justify-content-between">-->
+<!--                            <h5 class="mb-1 fw-bormal">c.getUser().getFull_name()</h5>-->
+<!--                            <small class="text-muted">-->
+<!--                                PostDate and time-->
+<!--                            </small>-->
+<!--                        </div>-->
+<!--                        <p class="mb-1 mt-2">c.getComment()</p>-->
+<!--                        &lt;!&ndash; <%-->
+<!--                            if(currentUser!=null && currentUser.getId() == c.getUser().getId()){-->
+<!--                        %> &ndash;&gt;-->
+<!--                        <div class="d-flex w-100 justify-content-between mb-2">-->
+<!--                            <div class="mt-3 d-flex justify-content-start">-->
+<!--                                <button type="button" class="btn btn-sm me-2 fs-3" onclick="editModalOpen(<%=c.getId()%>, '<%=c.getComment()%>', '<%=c.getUser().getFull_name()%>', <%=c.getNews().getId()%>)">-->
+<!--                                    &#9998;-->
+<!--                                </button>-->
+<!--                                <button type="button" class="btn btn-sm fs-5" onclick="deleteModalOpen(<%=c.getId()%>, <%=c.getNews().getId()%>)">-->
+<!--                                    &#10060;-->
+<!--                                </button>-->
+<!--                            </div>-->
+<!--                            <div class="mt-3 d-flex align-items-center justify-content-end rounded-5" style="background-color: rgb(255, 236, 236);">-->
+<!--                                <button class="btn btn-sm fs-4 text-danger ms-2">-->
+<!--                                    &#9829;-->
+<!--                                </button>-->
+<!--                                <span class="me-4 text-danger">123</span>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </a>-->
+<!--                </div>-->
+            </div>
+        </section>
+    </div>
+
+</html>
