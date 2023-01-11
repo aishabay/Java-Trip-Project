@@ -2,6 +2,7 @@ package kz.Bootcamp.Trip.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -46,6 +47,7 @@ public class Tour extends BaseModel{
     @ManyToOne(fetch = FetchType.EAGER)
     private User author;
 
+    @CreationTimestamp
     private LocalDateTime postDate;
 
     @Column(name = "count_likes", columnDefinition = "int default 0")

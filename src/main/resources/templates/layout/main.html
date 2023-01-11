@@ -47,6 +47,10 @@
             navBg.style.backgroundColor = `#ffffff00`
         }
     }
+
+    document.getElementById("myForm").addEventListener("click", function (event)){
+        event.preventDefault()
+    }
 </script>
 <script type="text/javascript" th:src="@{'/js/bootstrap.bundle.js'}"></script>
 </html>

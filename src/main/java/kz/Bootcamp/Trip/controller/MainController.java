@@ -1,7 +1,9 @@
 package kz.Bootcamp.Trip.controller;
 
+import kz.Bootcamp.Trip.model.Request;
 import kz.Bootcamp.Trip.model.Tour;
 import kz.Bootcamp.Trip.service.FileUploadService;
+import kz.Bootcamp.Trip.service.RequestService;
 import kz.Bootcamp.Trip.service.TourService;
 import kz.Bootcamp.Trip.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +25,7 @@ public class MainController {
     private final UserService userService;
     private final FileUploadService fileUploadService;
     private final TourService tourService;
+    private final RequestService requestService;
 
     @GetMapping(value = {"/","home"})
     public String home(){
@@ -110,5 +113,11 @@ public class MainController {
         model.addAttribute("tours", tourService.getToursSearch(key,order));
 
         return "search";
+    }
+
+    @PostMapping(value = "/addRequest")
+    public String addRequest(Request request){
+        requestService.addRequest(request);
+        return "redirect:/contacts";
     }
 }
