@@ -5,11 +5,129 @@
 
     <div layout:fragment="content">
         <header class="header home-header">
-            <p class="text-white">Individual tours Almaty</p>
-            <p class="text-white mt-5">The best tours in Almaty and Almaty region. We will make your holiday memorable</p>
-            <a href="#" class="btn btn-lg text-white fw-bold py-3 px-5 mt-5 rounded-5" style="background-color: rgb(24, 178, 255); font-size: 1rem;">Choose tour</a>
+            <p class="text-white">Travel. Experience. Live.</p>
+            <p class="text-white mt-5">The best tours & excursions in Almaty and Almaty region. We will make your holiday memorable</p>
+            <a href="#tours" class="btn btn-lg text-white fw-bold py-3 px-5 mt-5 rounded-5" style="background-color: rgb(24, 178, 255); font-size: 1rem;">Choose tour</a>
             <div class="cover"></div>
         </header>
+
+        <section class="home-tour-list px-5" id="tours">
+            <p class="text-center">Popular <span>Tours</span></p>
+            <div class="row justify-content-around px-5" id="tours-container"></div>
+            <div class="row">
+                <a th:href="@{'/tour'}" class="btn btn-lg mt-5 mb-4 py-3 px-5 text-white fw-semibold rounded-1 mx-auto col-xxl-2 col-xl-3 col-lg-3 col-md-4 col-sm-5 col-6" style="background-color: rgb(24, 178, 255); font-size: 1rem;">Show all tours</a>
+            </div>
+            <div class="row mt-5">
+                <hr class="col-12 mx-auto w-50">
+            </div>
+        </section>
+
+        <section class="home-tour-list px-5">
+            <p class="text-center">Popular <span>Excursions</span></p>
+            <div class="row justify-content-around px-5" id="excursions-container"></div>
+            <div class="row">
+                <a th:href="@{'/excursion'}" class="btn btn-lg mt-5 mb-4 py-3 px-5 text-white fw-semibold rounded-1 mx-auto col-xxl-3 col-xl-3 col-lg-4 col-md-5 col-sm-7 col-9" style="background-color: rgb(24, 178, 255); font-size: 1rem;">Show all excursions</a>
+            </div>
+            <div class="row mt-5">
+                <hr class="col-12 mx-auto w-50">
+            </div>
+        </section>
+
+        <section class="slider my-5">
+            <div class="row">
+                <div class="">
+                    <p class="text-center fs-2 fw-semibold mb-5" style="color: rgb(58, 214, 58);">Group photos during tours & excursions</p>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-xxl-7 col-xl-8 col-lg-8 col-md-9 col-sm-10 col-11 mx-auto">
+                    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
+                        <div class="carousel-indicators">
+                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                        </div>
+                        <div class="carousel-inner">
+                            <div class="carousel-item active" data-bs-interval="3000">
+                                <img src="https://img.freepik.com/free-photo/group-of-friends-on-winter-trip-with-tent_23-2148375109.jpg?w=2000" class="d-block w-100 mx-auto" alt="...">
+                            </div>
+                            <div class="carousel-item" data-bs-interval="2000">
+                                <img src="https://i0.wp.com/www.armgeo.am/wp-content/uploads/2019/09/IMG_9122.jpg?ssl=1" class="d-block w-100 mx-auto" alt="...">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="https://vsevgesh.ru/images/feed/143/snowboard-meribel1.jpg" class="d-block w-100 mx-auto" alt="...">
+                            </div>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+<!--        <section class="bg-dark">-->
+<!--            <div class="row">-->
+<!--                <h2 class="text-center text-white my-5 fs-1 fw-bold">CONTACT US</h2>-->
+<!--            </div>-->
+<!--            <form id="myForm">-->
+<!--                <div class="row mb-4 p-4 mx-5">-->
+<!--                    <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 d-flex flex-column justify-content-between">-->
+<!--                        <input id="name" type="text" class="form-control p-3 my-2 border-secondary" required placeholder="Your Name...">-->
+<!--                        <input id="email" type="email" class="form-control p-3 my-2 border-secondary" required placeholder="Your Email...">-->
+<!--                        <input id="number" type="number" class="form-control p-3 my-2 border-secondary" required placeholder="Your Phone Number..." name="">-->
+<!--                    </div>-->
+<!--                    <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12">-->
+<!--                        <textarea id="message" class="border-secondary rounded-2 p-3 w-100 h-100" name=""  placeholder="Your Message..." required></textarea>-->
+<!--                    </div>-->
+<!--                    <div class="row col-xxl-2 col-xl-2 col-lg-3 col-md-3 col-sm-4 col-6 mx-auto my-3">-->
+<!--                        <button class="btn btn-sm mt-4 p-3 text-white fw-bold mx-auto rounded-5" type="submit" style="background-color: rgb(24, 178, 255);">-->
+<!--                            SEND-->
+<!--                        </button>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </form>-->
+<!--        </section>-->
+
+        <script type="text/x-handlebars-template" id="toursTemplate">
+            {{#each this}}
+            <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-sm-12 d-flex justify-content-center">
+                <div class="card shadow-lg" style="width: 24rem;">
+                    <img src="{{picture}}" class="card-img-top" alt="...">
+                    <div class="card-body py-4">
+                        <h5 class="card-title fw-semibold">{{nickname}}</h5>
+                        <p class="card-text fw-light">Tour for <span>{{duration}}</span> <span>{{daysHours}}</span> -
+                            <span>{{#each placesShort}} {{#if @last}} {{name}}. {{else}} {{name}},  {{/if}} {{/each}}</span></p>
+                        <a href="/tour/{{id}}" class="btn text-white fw-bold py-2 px-5" style="background-color: rgb(24, 178, 255); font-size: 0.9rem;">Read more</a>
+                    </div>
+                </div>
+            </div>
+            {{/each}}
+        </script>
+        <script th:src="@{'/tour-list.js'}"></script>
+
+
+        <script type="text/x-handlebars-template" id="excursionsTemplate">
+            {{#each this}}
+            <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-sm-12 d-flex justify-content-center">
+                <div class="card shadow-lg" style="width: 24rem;">
+                    <img src="{{picture}}" class="card-img-top" alt="...">
+                    <div class="card-body py-4">
+                        <h5 class="card-title fw-semibold">{{nickname}}</h5>
+                        <p class="card-text fw-light">Tour for <span>{{duration}}</span> <span>{{daysHours}}</span> -
+                            <span>{{#each placesShort}} {{#if @last}} {{name}}. {{else}} {{name}},  {{/if}} {{/each}}</span></p>
+                        <a href="/tour/{{id}}" class="btn text-white fw-bold py-2 px-5" style="background-color: rgb(24, 178, 255); font-size: 0.9rem;">Read more</a>
+                    </div>
+                </div>
+            </div>
+            {{/each}}
+        </script>
+        <script th:src="@{'/excursion-list.js'}"></script>
     </div>
 
 </html>

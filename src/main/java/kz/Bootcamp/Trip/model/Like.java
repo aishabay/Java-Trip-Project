@@ -14,9 +14,9 @@ import javax.persistence.Table;
 @Setter
 public class Like extends BaseModel{
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Tour tour;
 }

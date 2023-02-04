@@ -1,11 +1,15 @@
 package kz.Bootcamp.Trip.model;
 
+import kz.Bootcamp.Trip.dto.DescriptionDto;
+import kz.Bootcamp.Trip.dto.TourType;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Formula;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -28,15 +32,20 @@ public class Tour extends BaseModel{
 //    private String placesLong;
 
     private String transfer; //(bus / suv / plane / by foot)
-    private int typeNumberPeople; //(0: group tour / 1: individual tour)
+    private String typeNumberPeople; //(group / individual)
 
-    @Column(columnDefinition = "text")
-    private String description;
+//    @Column(columnDefinition = "text")
+//    private String description;
+
+//    @Column(name = "type")
+//    private TourType type;
 
 //    @Column(columnDefinition = "text")
 //    private String priceDescription;
 
-    private int typeDuration; //(0: tour / 1: excursion)
+    private String typeDuration; //(tour / excursion)
+
+    private String daysHours;
 
 //    @ManyToOne(fetch = FetchType.EAGER)
 //    private Trip trip; //(tour / excursion)
@@ -50,7 +59,14 @@ public class Tour extends BaseModel{
     @CreationTimestamp
     private LocalDateTime postDate;
 
-    @Column(name = "count_likes", columnDefinition = "int default 0")
+    private String picture;
+
+    //    @Formula("(select count(user_id) from t_likes l where l.tour_id = tour_id)")
+    @Column(columnDefinition = "int default 0")
     private int countLikes;
+
+//    private Boolean isLiked(){
+//        return getCountLikes() > 0;
+//    }
 
 }

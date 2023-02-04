@@ -15,6 +15,8 @@ public interface TourRepository extends JpaRepository<Tour,Long> {
 //    List<Tour> findAllByNameIsLikeOrderByDurationAsc(String key);
 //    List<Tour> findAllByNameIsLikeOrderByDurationDesc(String key);
 
+    List<Tour> findAllByTypeDurationIsContaining(String type);
+
     @Query(value = "select tour from Tour tour where lower(tour.name) like :nameParam " +
             "or lower(tour.nickname) like :nameParam order by tour.duration")
     List<Tour> searchToursDurationAsc(@Param("nameParam") String key);

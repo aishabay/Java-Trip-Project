@@ -21,7 +21,12 @@ public class TourServiceImpl implements TourService {
 
     @Override
     public List<Tour> getAllTours() {
-        return tourRepository.findAll();
+        return tourRepository.findAllByTypeDurationIsContaining("tour");
+    }
+
+    @Override
+    public List<Tour> getAllExcursions() {
+        return tourRepository.findAllByTypeDurationIsContaining("excursion");
     }
 
     @Override
@@ -35,13 +40,18 @@ public class TourServiceImpl implements TourService {
     }
 
     @Override
-    public List<String> getTourDesc(Long id) {
-        Tour tour = tourRepository.findById(id).orElseThrow();
-        String desc_str = tour.getDescription();
-        List<String> desc_list = Arrays.asList(desc_str.split("\n"));
-
-        return desc_list;
+    public Tour updateTour(Tour tour) {
+        return tourRepository.save(tour);
     }
+
+    //    @Override
+//    public List<String> getTourDesc(Long id) {
+//        Tour tour = tourRepository.findById(id).orElseThrow();
+//        String desc_str = tour.getDescription();
+//        List<String> desc_list = Arrays.asList(desc_str.split("\n"));
+//
+//        return desc_list;
+//    }
 
     @Override
     public List<Tour> getToursSearch(String key, String order) {
@@ -67,6 +77,11 @@ public class TourServiceImpl implements TourService {
     }
 
     @Override
+    public List<TourDto> getAllExcursionsDto() {
+        return tourMapper.toDtoList(getAllExcursions());
+    }
+
+    @Override
     public TourDto addTourDto(TourDto tourDto) {
         return tourMapper.toDto(addTour(tourMapper.toEntity(tourDto)));
     }
@@ -74,5 +89,20 @@ public class TourServiceImpl implements TourService {
     @Override
     public TourDto getTourDto(Long id) {
         return tourMapper.toDto(getTour(id));
+    }
+
+    @Override
+    public List<TourDto> getToursSearchDto(String key, String order) {
+        return tourMapper.toDtoList(getToursSearch(key,order));
+    }
+
+    @Override
+    public List<Tour> getAllTrips() {
+        return tourRepository.findAll();
+    }
+
+    @Override
+    public Tour getTrip(Long id) {
+        return tourRepository.findById(id).orElseThrow();
     }
 }

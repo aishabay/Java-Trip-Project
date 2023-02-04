@@ -22,4 +22,29 @@ public class PermissionServiceImpl implements PermissionService {
         permissions.add(permission);
         return permissions;
     }
+
+    @Override
+    public List<Permission> getAllPermissions() {
+        return permissionRepository.findAll();
+    }
+
+    @Override
+    public Permission addPermission(String permissionName) {
+        Permission permission = new Permission();
+        permission.setPermission(permissionName);
+        return permissionRepository.save(permission);
+    }
+
+    @Override
+    public Permission updatePermission(Long permissionId, String permissionName) {
+        Permission permission = new Permission();
+        permission.setId(permissionId);
+        permission.setPermission(permissionName);
+        return permissionRepository.save(permission);
+    }
+
+    @Override
+    public void deletePermission(Long id) {
+        permissionRepository.deleteById(id);
+    }
 }

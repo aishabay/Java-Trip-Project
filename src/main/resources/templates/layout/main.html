@@ -4,8 +4,9 @@
                 xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
     <meta charset="UTF-8">
-    <title>Home</title>
-    <link rel="stylesheet" type="text/css" th:href="@{'/css/bootstrap.css'}">
+    <title>EcoTravel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" th:href="@{'/css/bootstrap.min.css'}">
     <link rel="stylesheet" type="text/css" th:href="@{'/navbar.css'}">
     <link rel="stylesheet" type="text/css" th:href="@{'/main.css'}">
     <link rel="stylesheet" type="text/css" th:href="@{'/footer.css'}">
@@ -20,37 +21,8 @@
     </div>
 </div>
 </body>
-<script>
-    const navBg = document.querySelector('#navbar-bg')
-    const navTogg = document.querySelector('.navbar-toggler')
-    navTogg.addEventListener('click', function() {
-        var isExpanded = document.querySelector('button[aria-expanded]')?.getAttribute('aria-expanded')
-        if (isExpanded=='true'){
-            navBg.style.backgroundColor = `rgb(43, 43, 48)`
-        }else if(document.body.scrollTop > 20 || document.documentElement.scrollTop > 20){
-            navBg.style.backgroundColor = `rgb(43, 43, 48)`
-        }
-        else{
-            navBg.style.backgroundColor = `#ffffff00`
-        }
-    });
+<script type="text/javascript" th:src="@{'/js/bootstrap.bundle.min.js'}"></script>
 
-    // When the user scrolls down 50px from the top of the document, resize the header's font size
-    window.onscroll = function() {scrollFunction()};
-    function scrollFunction() {
-        var isExpanded = document.querySelector('button[aria-expanded]')?.getAttribute('aria-expanded')
-        if(document.body.scrollTop > 20 || document.documentElement.scrollTop > 20){
-            navBg.style.backgroundColor = `rgb(43, 43, 48)` //rgb(251, 251, 251)
-        } else if(isExpanded=='true'){
-            navBg.style.backgroundColor = `rgb(43, 43, 48)`
-        } else {
-            navBg.style.backgroundColor = `#ffffff00`
-        }
-    }
-
-    document.getElementById("myForm").addEventListener("click", function (event)){
-        event.preventDefault()
-    }
-</script>
-<script type="text/javascript" th:src="@{'/js/bootstrap.bundle.js'}"></script>
+<script type="text/javascript" th:src="@{'/handlebars-v4.7.7.js'}"></script>
+<script type="text/javascript" th:src="@{'/main.js'}"></script>
 </html>

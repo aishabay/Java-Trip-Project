@@ -12,19 +12,43 @@
         <main class="tour-list px-5">
             <p class="text-center">The best tours from Almaty</p>
             <p class="text-center">from <span>AsiaTrip</span></p>
-            <div class="row justify-content-around px-5">
-                <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-sm-12 d-flex justify-content-center" th:each="t : ${tours}">
-                    <div class="card shadow-lg" style="width: 24rem;">
-                        <img src="https://wallpapercave.com/wp/wp2782408.jpg" class="card-img-top" alt="...">
-                        <div class="card-body py-4">
-                            <h5 class="card-title fw-semibold" th:text="${t.nickname}"></h5>
-                            <p class="card-text fw-light">Tour for <span th:text="${t.duration}"></span> days - Kolsay Lake, Kayindy, Charyn</p>
-                            <a th:href="@{'/tour/'+${t.id}}" class="btn text-white fw-bold py-2 px-5" style="background-color: rgb(24, 178, 255); font-size: 0.9rem;">Read more</a>
-                        </div>
+            <div class="row justify-content-around px-5" id="tours-container"></div>
+        </main>
+
+        <script type="text/x-handlebars-template" id="toursTemplate">
+            {{#each this}}
+            <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-sm-12 d-flex justify-content-center">
+                <div class="card shadow-lg" style="width: 24rem;">
+                    <img src="{{picture}}" class="card-img-top" alt="...">
+                    <div class="card-body py-4">
+                        <h5 class="card-title fw-semibold">{{nickname}}</h5>
+                        <p class="card-text fw-light">Tour for <span>{{duration}}</span> <span>{{daysHours}}</span> -
+                            <span>{{#each placesShort}} {{#if @last}} {{name}}. {{else}} {{name}},  {{/if}} {{/each}}</span></p>
+                        <a href="/tour/{{id}}" class="btn text-white fw-bold py-2 px-5" style="background-color: rgb(24, 178, 255); font-size: 0.9rem;">Read more</a>
                     </div>
                 </div>
             </div>
-        </main>
+            {{/each}}
+        </script>
+        <script th:src="@{'/tour-list.js'}"></script>
     </div>
 
 </html>
+
+
+<!--        <main class="tour-list px-5">-->
+<!--            <p class="text-center">The best tours from Almaty</p>-->
+<!--            <p class="text-center">from <span>AsiaTrip</span></p>-->
+<!--            <div class="row justify-content-around px-5">-->
+<!--                <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-sm-12 d-flex justify-content-center" th:each="t : ${tours}">-->
+<!--                    <div class="card shadow-lg" style="width: 24rem;">-->
+<!--                        <img src="https://wallpapercave.com/wp/wp2782408.jpg" class="card-img-top" alt="...">-->
+<!--                        <div class="card-body py-4">-->
+<!--                            <h5 class="card-title fw-semibold" th:text="${t.nickname}"></h5>-->
+<!--                            <p class="card-text fw-light">Tour for <span th:text="${t.duration}"></span> days - Kolsay Lake, Kayindy, Charyn</p>-->
+<!--                            <a th:href="@{'/tour/'+${t.id}}" class="btn text-white fw-bold py-2 px-5" style="background-color: rgb(24, 178, 255); font-size: 0.9rem;">Read more</a>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </main>-->

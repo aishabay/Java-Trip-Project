@@ -24,29 +24,42 @@
                 <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-sm-12 d-flex flex-column align-items-center my-3">
                     <img src="https://cdn-icons-png.flaticon.com/512/561/561127.png" alt="" style="width: 5rem; height: 5rem;">
                     <p class="fw-bold fs-5 mt-3">Email</p>
-                    <p class="text-secondary text-center m-0">asiatrip@gmail.com</p>
+                    <p class="text-secondary text-center m-0">ecotravel@gmail.com</p>
                 </div>
             </div>
         </section>
 
-        <section>
+        <section class="contactUs">
             <div class="row m-0">
                 <h2 class="text-center text-dark my-5 fs-1 fw-bold">CONTACT US</h2>
             </div>
-            <form id="myForm" th:action="@{'/addRequest'}" method="post">
+            <form id="myForm">
                 <div class="row mb-4 p-4 mx-5">
                     <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 d-flex flex-column justify-content-between">
-                        <input id="name" type="text" class="form-control p-3 my-2 border-secondary" required placeholder="Your Name..." name="name">
-                        <input id="email" type="email" class="form-control p-3 my-2 border-secondary" required placeholder="Your Email..." name="email">
-                        <input id="number" type="number" class="form-control p-3 my-2 border-secondary" required placeholder="Your Phone Number..." name="number">
+                        <input id="request_name" type="text" class="form-control p-3 my-2 border-secondary" required placeholder="Your Name..." name="name">
+                        <input id="request_email" type="email" class="form-control p-3 my-2 border-secondary" required placeholder="Your Email..." name="email">
+                        <input id="request_number" type="number" class="form-control p-3 my-2 border-secondary" required placeholder="Your Phone Number..." name="number">
                     </div>
                     <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12">
-                        <textarea id="message" class="border-secondary rounded-2 p-3 w-100 h-100" name="message"  placeholder="Your Message..." required></textarea>
+                        <textarea id="request_message" class="border-secondary rounded-2 p-3 w-100 h-100" name="message"  placeholder="Your Message..." required></textarea>
                     </div>
                     <div class="row col-xxl-2 col-xl-2 col-lg-3 col-md-3 col-sm-4 col-6 mx-auto my-3">
-                        <button class="btn btn-sm mt-4 p-3 text-white fw-bold mx-auto rounded-5" type="submit" style="background-color: rgb(24, 178, 255);">
+                        <button class="btn btn-sm mt-4 p-3 text-white fw-bold mx-auto rounded-5" style="background-color: rgb(24, 178, 255);" type="button" id="submit_request">
                             SEND
                         </button>
+                        <div class="toast-container position-fixed bottom-0 end-0 p-3">
+                            <div id="liveToast" class="toast" role="status" aria-live="polite" aria-atomic="true" data-bs-delay="10000">
+                                <div class="toast-header">
+<!--                                    <img src="" class="rounded me-2" alt="...">-->
+                                    <strong class="me-auto">EcoTravel</strong>
+                                    <small>Just now</small>
+                                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                                </div>
+                                <div class="toast-body">
+                                    Your request has successfully been delivered. We will try to contact you back as soon as possible. Good day!)
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </form>
@@ -58,6 +71,7 @@
             </iframe> -->
             <iframe class="rounded-5" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d11626.634876699269!2d76.9066824!3d43.23761455!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3883693d77a95ead%3A0x320bc1274fae5f7!2sAlatau!5e0!3m2!1sen!2skz!4v1672827330597!5m2!1sen!2skz" width="400" height="400" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
-    </div>
 
+        <script th:src="@{'/contacts.js'}"></script>
+    </div>
 </html>

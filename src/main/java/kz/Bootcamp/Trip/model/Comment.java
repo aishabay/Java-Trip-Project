@@ -2,9 +2,11 @@ package kz.Bootcamp.Trip.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -22,8 +24,9 @@ public class Comment extends BaseModel{
     @Column(columnDefinition = "text")
     private String comment;
 
-    private Timestamp postDate;
+    @CreationTimestamp
+    private LocalDateTime postDate;
 
-    @Column(name = "count_likes", columnDefinition = "int default 0")
-    private int countLikes;
+//    @Column(name = "count_likes", columnDefinition = "int default 0")
+//    private int countLikes;
 }

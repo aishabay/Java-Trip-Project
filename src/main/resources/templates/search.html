@@ -14,10 +14,10 @@
         <main class="search-tours my-5">
             <div class="row mb-2 mx-0">
                 <div class="col-xxl-10 col-xl-10 col-lg-11 col-md-11 col-sm-11 col-11 mx-auto border pt-2 pb-4">
-                    <form th:action="@{'/search'}" method="get">
+                    <form id="searchForm" th:action="@{'/search'}" method="get">
                         <div class="row d-flex align-items-end justify-content-center">
                             <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-10 col-11">
-                                <input type="text" class="form-control py-3 rounded-5 ps-4 mt-3" placeholder="Search..." th:value="${param.key}">
+                                <input type="text" class="form-control py-3 rounded-5 ps-4 mt-3" placeholder="Search..." th:value="${param.key}" name="key" required>
                             </div>
                             <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-7 col-8">
                                 <p class="fw-bold text-center mt-4">Sort by duration in:</p>
@@ -38,12 +38,19 @@
                 <hr class="col-12 mx-auto w-50 mb-5">
             </div>
             <div class="row justify-content-around px-5 mx-0">
-                <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-sm-12 d-flex justify-content-center" th:each="t : ${tours}">
+                <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-sm-12 d-flex justify-content-center mb-5" th:each="t : ${tours}">
                     <div class="card shadow-lg" style="width: 24rem;">
-                        <img src="https://wallpapercave.com/wp/wp2782408.jpg" class="card-img-top" alt="...">
+                        <img th:src="${t.picture}" class="card-img-top" alt="...">
                         <div class="card-body py-4">
                             <h5 class="card-title fw-semibold" th:text="${t.nickname}"></h5>
-                            <p class="card-text fw-light">Tour for <span th:text="${t.duration}"></span> days - Kolsay Lake, Kayindy, Charyn</p>
+                            <p class="card-text fw-light">
+                                Tour for
+                                <span th:text="${t.duration}"></span>
+                                <span th:text="${t.daysHours}">days</span> -
+                                <span th:each="p, iStat:${t.placesShort}">
+                                    <span th:text="(!${iStat.last} ? ${p.name} + ',' : ${p.name})">,</span>
+                                </span>
+                            </p>
                             <a th:href="@{'/tour/'+${t.id}}" class="btn text-white fw-bold py-2 px-5" style="background-color: rgb(24, 178, 255); font-size: 0.9rem;">Read more</a>
                         </div>
                     </div>

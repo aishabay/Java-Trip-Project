@@ -1,5 +1,6 @@
 package kz.Bootcamp.Trip.service.impl;
 
+import kz.Bootcamp.Trip.model.Permission;
 import kz.Bootcamp.Trip.model.User;
 import kz.Bootcamp.Trip.repository.UserRepository;
 import kz.Bootcamp.Trip.service.PermissionService;
@@ -11,6 +12,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import java.util.List;
 
 public class UserServiceImpl implements UserService {
 
@@ -26,6 +29,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserByEmail(String email) {
         return userRepository.findByEmail(email);
+    }
+
+    @Override
+    public User getUserById(Long id) {
+        return userRepository.findById(id).orElseThrow();
     }
 
     @Override
@@ -79,5 +87,25 @@ public class UserServiceImpl implements UserService {
         User user = getCurrentUser();
         user.setAvatar(avatarUrl);
         return userRepository.save(user);
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
+
+    @Override
+    public User updateUser(List<Permission> permissions, User user) {
+        if(permissions!=null){
+            user.setPermissions(permissions);
+        }else{
+            user.setPermissions(permissionService.simpleUserPermissions());
+        }
+        return userRepository.save(user);
+    }
+
+    @Override
+    public void deleteUser(Long id) {
+        userRepository.deleteById(id);
     }
 }
