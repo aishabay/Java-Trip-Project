@@ -3,7 +3,7 @@ tours.open('GET', '/tours', true)
 // tours.responseType = 'json';
 tours.onload = function() {
     if (tours.status >= 200 && tours.status < 400) {
-        var data = JSON.parse(tours.responseText);
+        let data = JSON.parse(tours.responseText);
         createToursList(data);
     } else {
         console.log("We connected to the server, but it returned an error");

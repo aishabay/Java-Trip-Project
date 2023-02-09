@@ -11,9 +11,7 @@ import java.util.List;
 @Getter
 @Setter
 public class TourDto {
-
     private Long id;
-
     private String name;
     private String nickname;
     private int duration; //(in days: 1/2/3/4 or in hours: 5, 10, 12, 15, 16)
@@ -44,5 +42,4 @@ public class TourDto {
     private int countLikes;
 
     private String picture;
-
 }

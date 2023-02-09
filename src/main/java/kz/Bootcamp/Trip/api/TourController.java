@@ -21,6 +21,11 @@ public class TourController {
         return tourService.getAllToursDto();
     }
 
+    @GetMapping(value = "/home")
+    public List<TourDto> getAllToursHome(){
+        return tourService.getAllToursHomeDto();
+    }
+
     @GetMapping(value = "{id}")
     public TourDto getTourById(@PathVariable(name = "id") Long id){
         return tourService.getTourDto(id);

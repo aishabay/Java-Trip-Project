@@ -37,13 +37,4 @@ public class DislikeController {
         }
         return false;
     }
-
-    @GetMapping(value="/check/initial/{tourId}")
-    public Boolean checkDislikeInitial(@PathVariable(name="tourId") Long tourId){
-        if(!dislikeService.isDislikePresent(tourId)){
-            return true;
-        }
-        return false;
-    }
-
 }

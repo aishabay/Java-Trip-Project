@@ -6,6 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class PlaceDto {
+    private Long id;
     private String name;
     private String image;
 }

@@ -10,7 +10,6 @@ import java.util.List;
 @Getter
 @Setter
 public class PriceDto {
-
     private Long id;
     private String name;
     private int price; // in tenge

@@ -23,4 +23,8 @@ public interface ItemService {
 
     boolean deleteItem(Long id);
 
+    void assignItems(Price price, List<Item> items);
+
+//    void unassignItem(Long tripId, Price price);
+
 }

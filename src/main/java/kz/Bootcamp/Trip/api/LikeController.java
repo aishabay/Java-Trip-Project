@@ -41,13 +41,4 @@ public class LikeController {
         }
         return false;
     }
-
-    @GetMapping(value="/check/initial/{tourId}")
-    public Boolean checkLikeInitial(@PathVariable(name="tourId") Long tourId){
-        if(!likeService.isLikePresent(tourId)){
-            return true;
-        }
-        return false;
-    }
-
 }

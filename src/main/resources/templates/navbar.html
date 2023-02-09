@@ -28,8 +28,8 @@
                             <li><a class="dropdown-item" th:href="@{'/signup'}" sec:authorize = "isAnonymous()">Sign up</a></li>
                             <li><a class="dropdown-item" th:href="@{'/signin'}" sec:authorize = "isAnonymous()">Sign in</a></li>
                             <li sec:authorize = "isAuthenticated()"><a class="dropdown-item" th:href="@{'/profile'}">Profile</a></li>
-<!--                            <li sec:authorize = "hasAnyRole('ROLE_ADMIN')"><a class="dropdown-item" th:href="@{'/admin'}">Admin Panel</a></li>-->
-                            <li><a class="dropdown-item" th:href="@{'/admin'}">Admin Panel</a></li>
+                            <li sec:authorize = "hasAnyRole('ROLE_ADMIN')"><a class="dropdown-item" th:href="@{'/admin'}">Admin Panel</a></li>
+<!--                            <li><a class="dropdown-item" th:href="@{'/admin'}">Admin Panel</a></li>-->
                             <li sec:authorize = "isAuthenticated()"><hr class="dropdown-divider"></li>
                             <li sec:authorize = "isAuthenticated()">
                                 <a class="dropdown-item" href="JavaScript:void(0)" onclick="logoutForm.submit()">

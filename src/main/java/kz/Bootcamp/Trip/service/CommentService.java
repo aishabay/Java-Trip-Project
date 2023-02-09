@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface CommentService {
 
+    Comment getComment(Long commentId);
     List<Comment> getAllCommentsByTourId(Long tourId);
     List<CommentDto> getAllCommentsByTourIdDto(Long tourId);
 

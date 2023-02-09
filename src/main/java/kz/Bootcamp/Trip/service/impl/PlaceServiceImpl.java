@@ -10,6 +10,7 @@ import kz.Bootcamp.Trip.service.TourService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -42,7 +43,7 @@ public class PlaceServiceImpl implements PlaceService {
 
     @Override
     public List<Place> getAllPlaces() {
-        return placeRepository.findAll();
+        return placeRepository.findAllPlacesAsc();
     }
 
     @Override
@@ -68,5 +69,90 @@ public class PlaceServiceImpl implements PlaceService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void assignPlaceShort(Long tripId, Long placeId) {
+        Tour tour = tourService.getTour(tripId);
+        Place place = getPlace(placeId);
+
+        List<Place> places = tour.getPlacesShort();
+        if(places==null){
+            places = new ArrayList<>();
+        }
+        places.add(place);
+        tour.setPlacesShort(places);
+        tourService.updateTour(tour);
+    }
+
+    @Override
+    public void assignPlacesShort(Long tripId, List<Place> places) {
+        Tour tour = tourService.getTour(tripId);
+
+        if(places==null){
+            places = new ArrayList<>();
+        }
+        tour.setPlacesShort(places);
+        tourService.updateTour(tour);
+    }
+
+    @Override
+    public void unassignPlaceShort(Long tripId, Long placeId) {
+        Tour tour = tourService.getTour(tripId);
+        Place place = getPlace(placeId);
+
+        List<Place> places = tour.getPlacesShort();
+        if(places==null){
+            places = new ArrayList<>();
+        }
+
+        if(places.contains(place)){
+            places.remove(place);
+            tour.setPlacesShort(places);
+            tourService.updateTour(tour);
+        }
+    }
+
+    @Override
+    public void assignPlaceLong(Long tripId, Long placeId) {
+        Tour tour = tourService.getTour(tripId);
+        Place place = getPlace(placeId);
+
+        List<Place> places = tour.getPlacesLong();
+        if(places==null){
+            places = new ArrayList<>();
+        }
+        places.add(place);
+        tour.setPlacesLong(places);
+        tourService.updateTour(tour);
+    }
+
+    @Override
+    public void assignPlacesLong(Long tripId, List<Place> places) {
+        Tour tour = tourService.getTour(tripId);
+
+        if(places==null){
+            places = new ArrayList<>();
+        }
+
+        tour.setPlacesLong(places);
+        tourService.updateTour(tour);
+    }
+
+    @Override
+    public void unassignPlaceLong(Long tripId, Long placeId) {
+        Tour tour = tourService.getTour(tripId);
+        Place place = getPlace(placeId);
+
+        List<Place> places = tour.getPlacesLong();
+        if(places==null){
+            places = new ArrayList<>();
+        }
+
+        if(places.contains(place)){
+            places.remove(place);
+            tour.setPlacesLong(places);
+            tourService.updateTour(tour);
+        }
     }
 }

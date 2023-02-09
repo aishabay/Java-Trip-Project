@@ -14,4 +14,6 @@ public interface PriceRepository extends JpaRepository<Price, Long> {
 
     List<Price> findAllByTour(Tour tour);
 
+    Price findByNameAndPriceAndTourId(String name, int price, Long tripId);
+
 }

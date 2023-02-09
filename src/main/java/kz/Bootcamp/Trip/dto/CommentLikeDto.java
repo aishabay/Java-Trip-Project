@@ -5,8 +5,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class TripDto {
-
+public class CommentLikeDto {
     private Long id;
-    private String name;
+    private UserDto user;
+    private CommentDto comment;
 }

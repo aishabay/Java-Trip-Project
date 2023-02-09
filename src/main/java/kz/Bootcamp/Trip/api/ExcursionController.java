@@ -19,6 +19,11 @@ public class ExcursionController {
         return tourService.getAllExcursionsDto();
     }
 
+    @GetMapping(value = "/home")
+    public List<TourDto> getAllExcursionsHome(){
+        return tourService.getAllExcursionsHomeDto();
+    }
+
     @GetMapping(value = "{id}")
     public TourDto getTourById(@PathVariable(name = "id") Long id){
         return tourService.getTourDto(id);

@@ -1,21 +1,22 @@
 let id = document.getElementById("tour_id").value;
 
-var tour = new XMLHttpRequest();
-tour.open('GET', '/tours/'+id, true)
+var tour_item = new XMLHttpRequest();
+tour_item.open('GET', '/tours/'+id, true)
 // tours.responseType = 'json';
-tour.onload = function() {
-    if (tour.status >= 200 && tour.status < 400) {
-        var data = JSON.parse(tour.responseText);
+tour_item.onload = function() {
+    if (tour_item.status >= 200 && tour_item.status < 400) {
+        var data = JSON.parse(tour_item.responseText);
         tour_name.innerHTML = data.name;
-        tour_name_reserve.innerHTML = data.name;
-        tour_id_reserve.innerHTML = data.id;
+        tour_name_order.innerHTML = data.name;
+        tour_id_order.innerHTML = id;
         tour_type_number_people.innerHTML = data.typeNumberPeople;
         tour_type_duration.innerHTML = data.typeDuration;
         tour_duration.innerHTML = data.duration;
         tour_days_hours.innerHTML = data.daysHours;
         tour_picture.backgroundImage = "url('"+data.picture+"')";
-        console.log(data);
-        console.log(data.picture);
+        // console.log(data);
+        // console.log(data.picture);
+
         // insertTourName(data);
         // insertTourTypeNumberPeople(data);
         // insertTourTypeDuration(data);
@@ -27,10 +28,10 @@ tour.onload = function() {
         console.log("We connected to the server, but it returned an error");
     }
 };
-tour.onerror = function () {
+tour_item.onerror = function () {
     console.log("Connection error");
 }
-tour.send();
+tour_item.send();
 
 
 
@@ -137,12 +138,15 @@ tour_prices.send();
 if (isLoggedIn.value != "anonymousUser"){
     tour_count_likes.addEventListener('click', like);
     tour_count_dislikes.addEventListener('click', dislike);
+    // tour_button_commentLikes.addEventListener('click', changeCommentLikeNumber)
     submit_comment.addEventListener('click', addComment);
     window.addEventListener("load", changeLikeInitialColor)
     window.addEventListener("load", changeDislikeInitialColor)
+    // window.addEventListener("load", changeCommentLikeInitialColor)
 }
 window.addEventListener("load", getLikeNumber);
 window.addEventListener("load", getDislikeNumber);
+window.addEventListener("load", getCommentLikeNumber);
 window.addEventListener("load", loadComments);
 window.addEventListener("load", getCommentNumber);
 
@@ -284,9 +288,33 @@ function getDislikeNumber(){
     }
     tour_dislikes.send();
 }
+
+function getCommentLikeNumber(){
+    var tour_commentLikes = new XMLHttpRequest();
+    tour_commentLikes.open('GET', '/commentLike/'+id, true)
+    tour_commentLikes.setRequestHeader("Content-Type", "application/json");
+    tour_commentLikes.onload = function () {
+        if (tour_commentLikes.status >= 200 && tour_commentLikes.status < 400) {
+            var data = JSON.parse(tour_commentLikes.responseText);
+            if(data!=0){
+                tour_count_commentLikes.innerHTML = data;
+            }else{
+                tour_count_commentLikes.innerHTML = "";
+            }
+            // console.log(isLoggedIn.value)
+        } else {
+            console.log("We connected to the server, but it returned an error");
+        }
+    }
+    tour_commentLikes.onerror = function () {
+        console.log("Connection error");
+    }
+    tour_commentLikes.send();
+}
+
 function changeLikeInitialColor(){
     var tour_like_initial = new XMLHttpRequest();
-    tour_like_initial.open('GET', '/like/check/initial/'+id, true)
+    tour_like_initial.open('GET', '/like/check/'+id, true)
     tour_like_initial.setRequestHeader("Content-Type", "application/json");
     tour_like_initial.onload = function () {
         if (tour_like_initial.status >= 200 && tour_like_initial.status < 400) {
@@ -310,7 +338,7 @@ function changeLikeInitialColor(){
 }
 function changeDislikeInitialColor(){
     var tour_dislike_initial = new XMLHttpRequest();
-    tour_dislike_initial.open('GET', '/dislike/check/initial/'+id, true)
+    tour_dislike_initial.open('GET', '/dislike/check/'+id, true)
     tour_dislike_initial.setRequestHeader("Content-Type", "application/json");
     tour_dislike_initial.onload = function () {
         if (tour_dislike_initial.status >= 200 && tour_dislike_initial.status < 400) {
@@ -494,4 +522,32 @@ function insertTourComments(data){
 
     var element = document.getElementById("tour_comments");
     element.innerHTML = generatedHTML;
+}
+
+
+const toastLiveExample = document.getElementById('liveToast')
+submit_order.addEventListener('click',addOrder);
+
+function addOrder(){
+    let order_data = new XMLHttpRequest();
+    order_data.open("POST", "/order", true);
+    order_data.setRequestHeader("Content-type", "application/json");
+
+    const params = {
+        "tour" : {"id" : id},
+        "name" : order_name.value,
+        "email" : order_email.value,
+        "number" : order_number.value,
+        "message" : order_message.value
+    }
+
+    order_data.send(JSON.stringify(params));
+
+    order_name.value = "";
+    order_email.value = "";
+    order_number.value = "";
+    order_message.value = "";
+
+    const toast = new bootstrap.Toast(toastLiveExample)
+    toast.show()
 }

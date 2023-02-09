@@ -26,6 +26,11 @@ public class CommentServiceImpl implements CommentService {
     private final UserService userService;
 
     @Override
+    public Comment getComment(Long commentId) {
+        return commentRepository.findById(commentId).orElseThrow();
+    }
+
+    @Override
     public List<Comment> getAllCommentsByTourId(Long tourId) {
         return commentRepository.findAllByTourId(tourId);
     }

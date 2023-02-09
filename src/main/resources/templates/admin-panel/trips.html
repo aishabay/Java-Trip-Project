@@ -40,18 +40,28 @@
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
+                                    Type of trip based on duration:
+                                    <!--                                    <input type="text" name="typeDuration" class="form-control my-3" required>-->
+                                    <select name="typeDuration" class="form-select my-3">
+                                        <option th:value="tour">Tour</option>
+                                        <option th:value="excursion">Excursion</option>
+                                    </select>
+                                    Type of trip based on the number of people:
+                                    <!--                                    <input type="text" name="typeNumberPeople" class="form-control my-3" required>-->
+                                    <select name="typeNumberPeople" class="form-select my-3">
+                                        <option th:value="group">Group</option>
+                                        <option th:value="individual">Individual</option>
+                                    </select>
                                     Name:
                                     <input type="text" name="name" class="form-control my-3" required>
                                     Nickname:
                                     <input type="text" name="nickname" class="form-control my-3" required>
+                                    Picture URL:
+                                    <input type="text" name="picture" class="form-control my-3" required>
                                     Duration (for excursion in hours & for tour in days):
                                     <input type="number" name="duration" class="form-control my-3" required>
-                                    Transfer (bus / suv / plane / by foot):
+                                    Transfer <span class="text-danger">(e.g. bus / suv / plane / by foot)</span>:
                                     <input type="text" name="transfer" class="form-control my-3" required>
-                                    Type of trip based on the number of people (group / individual):
-                                    <input type="text" name="typeNumberPeople" class="form-control my-3" required>
-                                    Type of trip based on duration (tour / excursion)
-                                    <input type="text" name="typeDuration" class="form-control my-3" required>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -73,8 +83,6 @@
                             <th scope="col">Group / individual</th>
                             <th scope="col">Author</th>
                             <th scope="col">Details</th>
-<!--                            <th scope="col">Edit</th>-->
-<!--                            <th scope="col" class="text-end pe-2">Delete</th>-->
                         </tr>
                         </thead>
                         <tbody class="table-group-divider">
@@ -85,19 +93,7 @@
                             <td th:text="${t.duration}"></td>
                             <td th:text="${t.typeNumberPeople}" class="text-capitalize"></td>
                             <td th:text="${t.author.fullName}"></td>
-                            <td><a class="btn btn-primary btn-sm" th:href="@{'/admin-trip-details/' + ${t.id}}">View More</a></td>
-<!--                            <td>-->
-<!--                                <button class="btn btn-primary btn-sm" type="button"-->
-<!--                                        onclick="editPermissionModalOpen(this)" th:attr="data-permission-id=${t.id}, data-permission-name=${t.name}" >-->
-<!--                                    Edit-->
-<!--                                </button>-->
-<!--                            </td>-->
-<!--                            <td class="d-flex justify-content-end">-->
-<!--                                <button class="btn btn-danger btn-sm" type="button"-->
-<!--                                        onclick="deletePermissionModalOpen(this)" th:attr="data-permission-id=${t.id}, data-permission-name=${t.name}" >-->
-<!--                                    Delete-->
-<!--                                </button>-->
-<!--                            </td>-->
+                            <td><a class="btn btn-primary btn-sm" th:href="@{'/admin-trips/' + ${t.id}}">View More</a></td>
                         </tr>
                         </tbody>
                     </table>
@@ -105,72 +101,6 @@
             </main>
         </div>
     </div>
-
-    <!-- Edit User Modal -->
-    <div class="modal fade" id="editPermission" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <form th:action="@{'/editPermission'}" method="post">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5">Edit permission</h1>
-                        <input type="hidden" name="id" id="permission_id">
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body row align-items-center">
-                        <div class="col-lg-2 col-md-12 col-sm-12 col-12">Permission name: </div>
-                        <div class="col-lg-10 col-md-12 col-sm-12 col-12">
-                            <input type="text" name="permission" id="permission_name" class="form-control mt-2 mb-4" required>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-success">Edit</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- Delete User Modal -->
-    <div class="modal fade" id="deletePermission" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel1" aria-hidden="true">
-        <div class="modal-dialog">
-            <form th:action="@{'/deletePermission'}" method="post">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <input type="hidden" name="id" id="permission_delete_id">
-                        <h1 class="modal-title fs-5" id="staticBackdropLabel1">Are you sure that you want to delete
-                            <span id="permission_delete_name" class="text-danger fw-bold"></span> from database?
-                        </h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        This action is irreversible!
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button class="btn btn-danger">Delete</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <script type="text/javascript">
-        function editPermissionModalOpen(user){
-            const editPermissionModal = new bootstrap.Modal('#editPermission', {backdrop:true});
-
-            document.getElementById("permission_id").value = user.getAttribute("data-permission-id");
-            document.getElementById("permission_name").value = user.getAttribute("data-permission-name");
-            editPermissionModal.show();
-        }
-        function deletePermissionModalOpen(user){
-            const deletePermissionModal = new bootstrap.Modal('#deletePermission', {backdrop:true});
-
-            document.getElementById("permission_delete_id").value = user.getAttribute("data-permission-id");
-            document.getElementById("permission_delete_name").innerText = user.getAttribute("data-permission-name");
-            deletePermissionModal.show();
-        }
-    </script>
 
 </body>
 <script type="text/javascript" th:src="@{'/js/bootstrap.bundle.min.js'}"></script>

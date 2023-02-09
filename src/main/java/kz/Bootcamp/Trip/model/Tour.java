@@ -1,15 +1,11 @@
 package kz.Bootcamp.Trip.model;
 
-import kz.Bootcamp.Trip.dto.DescriptionDto;
-import kz.Bootcamp.Trip.dto.TourType;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.Formula;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity

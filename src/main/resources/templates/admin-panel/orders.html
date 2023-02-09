@@ -23,7 +23,7 @@
                 <!-- Button trigger modal -->
                 <button class="d-flex justify-content-between align-items-center px-3 mt-4 text-dark text-uppercase
                             col-xxl-2 col-xl-2 col-lg-2 col-md-3 col-sm-3 col-4 p-2 border border-1 border-dark rounded-4 mb-4 btn fw-semibold"
-                        type="button" data-bs-toggle="modal" data-bs-target="#addUser">
+                        type="button" data-bs-toggle="modal" data-bs-target="#addOrder">
                     <span>New Order</span>
                     <a class="link-dark" aria-label="Add a new report">
                         <span data-feather="plus-circle" class="align-text-bottom"></span>
@@ -31,30 +31,36 @@
                 </button>
 
                 <!-- Modal -->
-                <div class="modal fade" id="addUser" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal fade" id="addOrder" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                     <div class="modal-dialog modal-lg">
-                        <form th:action="@{'/addUser'}" method="post">
+                        <form th:action="@{'/addOrder'}" method="post">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Add New User</h1>
+                                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Add New Order</h1>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body row align-items-center">
+                                    <div class="col-lg-2 col-md-12 col-sm-12 col-12">Tour: </div>
+                                    <div class="col-lg-10 col-md-12 col-sm-12 col-12">
+                                        <select name="tour.id" class="form-control mt-2 mb-4">
+                                            <option th:each="t : ${tours}" th:text="${t.name}" th:value="${t.id}"></option>
+                                        </select>
+                                    </div>
                                     <div class="col-lg-2 col-md-12 col-sm-12 col-12">Email: </div>
                                     <div class="col-lg-10 col-md-12 col-sm-12 col-12">
-                                        <input type="email" name="user_email" class="form-control mt-2 mb-4" required>
+                                        <input type="email" name="email" class="form-control mt-2 mb-4" required>
                                     </div>
-                                    <div class="col-lg-2 col-md-12 col-sm-12 col-12">Full name: </div>
+                                    <div class="col-lg-2 col-md-12 col-sm-12 col-12">Name: </div>
                                     <div class="col-lg-10 col-md-12 col-sm-12 col-12">
-                                        <input type="text" name="user_full_name" class="form-control mt-2 mb-4" required>
+                                        <input type="text" name="name" class="form-control mt-2 mb-4" required>
                                     </div>
-                                    <div class="col-lg-2 col-md-12 col-sm-12 col-12">Password: </div>
+                                    <div class="col-lg-2 col-md-12 col-sm-12 col-12">Phone number: </div>
                                     <div class="col-lg-10 col-md-12 col-sm-12 col-12">
-                                        <input type="password" name="user_password" class="form-control mt-2 mb-4" required>
+                                        <input type="number" name="number" class="form-control mt-2 mb-4" required>
                                     </div>
-                                    <div class="col-lg-2 col-md-12 col-sm-12 col-12">Retype password: </div>
+                                    <div class="col-lg-2 col-md-12 col-sm-12 col-12">Message: </div>
                                     <div class="col-lg-10 col-md-12 col-sm-12 col-12">
-                                        <input type="password" name="user_re_password" class="form-control mt-2 mb-4" required>
+                                        <textarea name="message" class="form-control mt-2 mb-4" required></textarea>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
@@ -71,37 +77,79 @@
                         <thead>
                         <tr>
                             <th scope="col">ID</th>
+                            <th scope="col">Tour</th>
                             <th scope="col">Email</th>
-                            <th scope="col">Full name</th>
-                            <th scope="col">Permissions</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Phone number</th>
+                            <th scope="col">Message</th>
                             <th scope="col">Edit</th>
                             <th scope="col" class="text-end pe-2">Delete</th>
-    <!--                        <th scope="col">Password</th>-->
-    <!--                        <th scope="col">Avatar</th>-->
                         </tr>
                         </thead>
                         <tbody class="table-group-divider">
-                        <tr th:each="u : ${users}">
-                            <td th:text="${u.id}"></td>
-                            <td th:text="${u.email}"></td>
-                            <td th:text="${u.fullName}"></td>
-                            <td><span th:each="a,iStat : ${u.authorities}" th:text="(!${iStat.last} ? ${a.authority} + ', ' : ${a.authority})"> </span></td>
+                        <tr th:each="o : ${orders}">
+                            <td th:text="${o.id}"></td>
+                            <td th:text="${o.tour.name}"></td>
+                            <td th:text="${o.email}"></td>
+                            <td th:text="${o.name}"></td>
+                            <td th:text="${o.number}"></td>
+                            <td th:text="${o.message}"></td>
                             <td>
                                 <button class="btn btn-primary btn-sm" type="button"
-                                        onclick="editUserModalOpen(this)" th:attr="data-user-id=${u.id}, data-user-email=${u.email},
-                                        data-user-fullname=${u.fullName}, data-user-authorities=${u.authorities},
-                                        data-user-password=${u.password}, data-user-avatar=${u.avatar}" >
+                                        onclick="editOrderModalOpen(this)" th:attr="data-order-id=${o.id}, data-order-tour=${o.tour}, data-order-email=${o.email},
+                                        data-order-name=${o.name}, data-order-number=${o.number},
+                                        data-order-message=${o.message}" >
                                     Edit
                                 </button>
                             </td>
                             <td class="d-flex justify-content-end">
                                 <button class="btn btn-danger btn-sm" type="button"
-                                        onclick="deleteUserModalOpen(this)" th:attr="data-user-id=${u.id}, data-user-fullname=${u.fullName}" >
+                                        onclick="deleteOrderModalOpen(this)" th:attr="data-order-id=${o.id}, data-order-name=${o.name}" >
                                     Delete
                                 </button>
                             </td>
-    <!--                        <td th:text="${u.getPassword()}">placeholder</td>-->
-    <!--                        <td th:text="${u.getAvatar()}"></td>-->
+                            <!-- Edit Order Modal -->
+                            <div class="modal fade" id="editOrder" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+                                <div class="modal-dialog modal-lg">
+                                    <form th:action="@{'/editOrder'}" method="post">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5">Edit order</h1>
+                                                <input type="hidden" name="id" id="order_id">
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body row align-items-center">
+                                                <div class="col-lg-2 col-md-12 col-sm-12 col-12">Tour: </div>
+                                                <div class="col-lg-10 col-md-12 col-sm-12 col-12">
+                                                    <select name="tour.id" class="form-control mt-2 mb-4">
+                                                        <option th:each="t : ${tours}" th:text="${t.name}" th:value="${t.id}" th:selected="${o.tour.name.equals(t.name)}"></option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-lg-2 col-md-12 col-sm-12 col-12">Email: </div>
+                                                <div class="col-lg-10 col-md-12 col-sm-12 col-12">
+                                                    <input type="text" name="email" id="order_email" class="form-control mt-2 mb-4" required>
+                                                </div>
+                                                <div class="col-lg-2 col-md-12 col-sm-12 col-12">Name: </div>
+                                                <div class="col-lg-10 col-md-12 col-sm-12 col-12">
+                                                    <input type="text" name="name" id="order_name" class="form-control mt-2 mb-4" required>
+                                                </div>
+                                                <div class="col-lg-2 col-md-12 col-sm-12 col-12">Phone number: </div>
+                                                <div class="col-lg-10 col-md-12 col-sm-12 col-12">
+                                                    <input type="number" name="number" id="order_number" class="form-control mt-2 mb-4" required>
+                                                </div>
+                                                <div class="col-lg-2 col-md-12 col-sm-12 col-12">Message: </div>
+                                                <div class="col-lg-10 col-md-12 col-sm-12 col-12">
+                                                    <textarea name="message" id="order_message" class="form-control mt-2 mb-4" required></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-success">Edit</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
                         </tr>
                         </tbody>
                     </table>
@@ -110,69 +158,16 @@
         </div>
     </div>
 
-    <!-- Edit User Modal -->
-    <div class="modal fade" id="editUser" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <form th:action="@{'/editUser'}" method="post">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5">Edit user</h1>
-                        <input type="hidden" name="id" id="user_id">
-                        <input type="hidden" name="password" id="user_password">
-                        <input type="hidden" name="avatar" id="user_avatar">
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body row align-items-center">
-                        <div class="col-lg-2 col-md-12 col-sm-12 col-12">Email: </div>
-                        <div class="col-lg-10 col-md-12 col-sm-12 col-12">
-                            <input type="text" name="email" id="user_email" class="form-control mt-2 mb-4" required>
-                        </div>
-                        <div class="col-lg-2 col-md-12 col-sm-12 col-12">Full name: </div>
-                        <div class="col-lg-10 col-md-12 col-sm-12 col-12">
-                            <input type="text" name="fullName" id="user_fullname" class="form-control mt-2 mb-4" required>
-                        </div>
-                        <div class="col-lg-2 col-md-12 col-sm-12 col-12">Permissions:</div>
-                        <div class="col-lg-10 col-md-12 col-sm-12 col-12">
-                            <table class="table table-striped mt-2 mb-4">
-                                <thead class="border-bottom border-dark border-3">
-                                <tr>
-                                    <th>Choose</th>
-                                    <th>Name</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr th:each="p : ${permissions}">
-                                    <td>
-                                        <input type="checkbox" class="form-check-input mt-0" th:value="${p.id}" name="permissions">
-                                        <!--                                    th:checked="()"-->
-                                    </td>
-                                    <td th:text="${p.permission}"></td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="alert alert-danger col-11 mx-auto mt-3" role="alert">
-                            Don't forget to choose permission(s). Otherwise, it will be set to 'ROLE_USER'
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-success">Edit</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
 
-    <!-- Delete User Modal -->
-    <div class="modal fade" id="deleteUser" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel1" aria-hidden="true">
+    <!-- Delete Order Modal -->
+    <div class="modal fade" id="deleteOrder" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel1" aria-hidden="true">
         <div class="modal-dialog">
-            <form th:action="@{'/deleteUser'}" method="post">
+            <form th:action="@{'/deleteOrder'}" method="post">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <input type="hidden" name="user_id" id="user_delete_id">
-                        <h1 class="modal-title fs-5" id="staticBackdropLabel1">Are you sure that you want to delete user
-                            <span id="user_delete_fullname" class="text-danger fw-bold"></span> from database?
+                        <input type="hidden" name="id" id="order_delete_id">
+                        <h1 class="modal-title fs-5" id="staticBackdropLabel1">Are you sure that you want to delete order from
+                            <span id="order_delete_name" class="text-danger fw-bold"></span> from database?
                         </h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
@@ -189,23 +184,23 @@
     </div>
 
     <script type="text/javascript">
-        function editUserModalOpen(user){
-            const editUserModal = new bootstrap.Modal('#editUser', {backdrop:true});
+        function editOrderModalOpen(order){
+            const editOrderModal = new bootstrap.Modal('#editOrder', {backdrop:true});
 
-            document.getElementById("user_id").value = user.getAttribute("data-user-id");
-            document.getElementById("user_email").value = user.getAttribute("data-user-email");
-            document.getElementById("user_fullname").value = user.getAttribute("data-user-fullname");
-            document.getElementById("user_password").value = user.getAttribute("data-user-password");
-            document.getElementById("user_avatar").value = user.getAttribute("data-user-avatar");
-            // let user_authorities = user.getAttribute("data-user-authorities");
-            editUserModal.show();
+            document.getElementById("order_id").value = order.getAttribute("data-order-id");
+            // document.getElementById("order_tour").value = order.getAttribute("data-order-tour");
+            document.getElementById("order_email").value = order.getAttribute("data-order-email");
+            document.getElementById("order_name").value = order.getAttribute("data-order-name");
+            document.getElementById("order_number").value = order.getAttribute("data-order-number");
+            document.getElementById("order_message").value = order.getAttribute("data-order-message");
+            editOrderModal.show();
         }
-        function deleteUserModalOpen(user){
-            const deleteUserModal = new bootstrap.Modal('#deleteUser', {backdrop:true});
+        function deleteOrderModalOpen(order){
+            const deleteOrderModal = new bootstrap.Modal('#deleteOrder', {backdrop:true});
 
-            document.getElementById("user_delete_id").value = user.getAttribute("data-user-id");
-            document.getElementById("user_delete_fullname").innerText = user.getAttribute("data-user-fullname");
-            deleteUserModal.show();
+            document.getElementById("order_delete_id").value = order.getAttribute("data-order-id");
+            document.getElementById("order_delete_name").innerText = order.getAttribute("data-order-name");
+            deleteOrderModal.show();
         }
     </script>
 

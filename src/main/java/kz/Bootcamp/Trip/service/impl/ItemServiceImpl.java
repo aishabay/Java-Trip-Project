@@ -5,9 +5,11 @@ import kz.Bootcamp.Trip.dto.PriceDto;
 import kz.Bootcamp.Trip.mapper.ItemMapper;
 import kz.Bootcamp.Trip.model.Item;
 import kz.Bootcamp.Trip.model.Price;
+import kz.Bootcamp.Trip.model.Tour;
 import kz.Bootcamp.Trip.repository.ItemRepository;
 import kz.Bootcamp.Trip.service.ItemService;
 import kz.Bootcamp.Trip.service.PriceService;
+import kz.Bootcamp.Trip.service.TourService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +18,6 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class ItemServiceImpl implements ItemService {
-
     private final ItemMapper itemMapper;
     private final PriceService priceService;
     private final ItemRepository itemRepository;
@@ -61,4 +62,13 @@ public class ItemServiceImpl implements ItemService {
         }
         return false;
     }
+
+    @Override
+    public void assignItems(Price price, List<Item> items) {
+        price.setItems(items);
+        priceService.updatePrice(price);
+    }
+
+//    @Override
+//    public void unassignItem(Long tripId, Price price) {}
 }

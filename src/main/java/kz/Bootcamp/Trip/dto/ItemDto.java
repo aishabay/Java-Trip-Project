@@ -9,8 +9,6 @@ import java.util.List;
 @Getter
 @Setter
 public class ItemDto {
-
+    private Long id;
     private String name;
-//    private List<Item> itemList;
-
 }

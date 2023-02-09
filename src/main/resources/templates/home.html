@@ -13,7 +13,7 @@
 
         <section class="home-tour-list px-5" id="tours">
             <p class="text-center">Popular <span>Tours</span></p>
-            <div class="row justify-content-around px-5" id="tours-container"></div>
+            <div class="row justify-content-around px-5" id="tours-home-container"></div>
             <div class="row">
                 <a th:href="@{'/tour'}" class="btn btn-lg mt-5 mb-4 py-3 px-5 text-white fw-semibold rounded-1 mx-auto col-xxl-2 col-xl-3 col-lg-3 col-md-4 col-sm-5 col-6" style="background-color: rgb(24, 178, 255); font-size: 1rem;">Show all tours</a>
             </div>
@@ -24,7 +24,7 @@
 
         <section class="home-tour-list px-5">
             <p class="text-center">Popular <span>Excursions</span></p>
-            <div class="row justify-content-around px-5" id="excursions-container"></div>
+            <div class="row justify-content-around px-5" id="excursions-home-container"></div>
             <div class="row">
                 <a th:href="@{'/excursion'}" class="btn btn-lg mt-5 mb-4 py-3 px-5 text-white fw-semibold rounded-1 mx-auto col-xxl-3 col-xl-3 col-lg-4 col-md-5 col-sm-7 col-9" style="background-color: rgb(24, 178, 255); font-size: 1rem;">Show all excursions</a>
             </div>
@@ -94,7 +94,7 @@
 <!--            </form>-->
 <!--        </section>-->
 
-        <script type="text/x-handlebars-template" id="toursTemplate">
+        <script type="text/x-handlebars-template" id="toursHomeTemplate">
             {{#each this}}
             <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-sm-12 d-flex justify-content-center">
                 <div class="card shadow-lg" style="width: 24rem;">
@@ -109,10 +109,8 @@
             </div>
             {{/each}}
         </script>
-        <script th:src="@{'/tour-list.js'}"></script>
 
-
-        <script type="text/x-handlebars-template" id="excursionsTemplate">
+        <script type="text/x-handlebars-template" id="excursionsHomeTemplate">
             {{#each this}}
             <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-sm-12 d-flex justify-content-center">
                 <div class="card shadow-lg" style="width: 24rem;">
@@ -127,7 +125,7 @@
             </div>
             {{/each}}
         </script>
-        <script th:src="@{'/excursion-list.js'}"></script>
+        <script th:src="@{'/home.js'}"></script>
     </div>
 
 </html>

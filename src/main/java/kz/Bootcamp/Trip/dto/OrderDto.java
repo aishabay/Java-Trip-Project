@@ -15,5 +15,4 @@ public class OrderDto {
     private String number;
     private String message;
     private LocalDateTime postDate;
-
 }

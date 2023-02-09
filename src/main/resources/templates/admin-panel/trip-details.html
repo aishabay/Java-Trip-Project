@@ -17,7 +17,7 @@
 
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h2 class="h2">Tour: Kolsay lakes</h2>
+                <h2 class="h2"><span class="text-capitalize" th:text="${trip.typeDuration}"></span>: <span class="text-capitalize" th:text="${trip.name}"></span></h2>
             </div>
 
             <!-- Button trigger modal -->
@@ -32,116 +32,449 @@
                 </button>
             </form>
 
-            <!-- Modal -->
-<!--            <div class="modal fade" id="addTrip" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">-->
-<!--                <div class="modal-dialog modal-lg">-->
-<!--                    <form th:action="@{'/addTrip'}" method="post">-->
-<!--                        <div class="modal-content py-3">-->
-<!--                            <div class="modal-header">-->
-<!--                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Add New Trip</h1>-->
-<!--                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
-<!--                            </div>-->
-<!--                            <div class="modal-body">-->
-<!--                                Name:-->
-<!--                                <input type="text" name="name" class="form-control my-3" required>-->
-<!--                                Nickname:-->
-<!--                                <input type="text" name="nickname" class="form-control my-3" required>-->
-<!--                                Duration (for excursion in hours & for tour in days):-->
-<!--                                <input type="number" name="duration" class="form-control my-3" required>-->
-<!--                                Transfer (bus / suv / plane / by foot):-->
-<!--                                <input type="text" name="transfer" class="form-control my-3" required>-->
-<!--                                Type of trip based on the number of people (group / individual):-->
-<!--                                <input type="text" name="typeNumberPeople" class="form-control my-3" required>-->
-<!--                                Type of trip based on duration (tour / excursion)-->
-<!--                                <input type="text" name="typeDuration" class="form-control my-3" required>-->
-<!--                            </div>-->
-<!--                            <div class="modal-footer">-->
-<!--                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>-->
-<!--                                <button type="submit" class="btn btn-success">Add</button>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </form>-->
-<!--                </div>-->
-<!--            </div>-->
+            <h1 class="fs-4 fw-bold text-center mb-5 py-2 border-bottom border-1 border-secondary">EDIT</h1>
 
-            <div class="table-responsive">
-                <table class="table table-striped table-sm table-hover">
-                    <thead>
-                    <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Type</th>
-                        <th scope="col">Duration (in days / hours)</th>
-                        <th scope="col">Group / individual</th>
-                        <th scope="col">Author</th>
-                        <th scope="col">Details</th>
-                        <!--                            <th scope="col">Edit</th>-->
-                        <!--                            <th scope="col" class="text-end pe-2">Delete</th>-->
-                    </tr>
-                    </thead>
-                    <tbody class="table-group-divider">
-                    <tr th:each="t : ${trips}">
-                        <td th:text="${t.id}"></td>
-                        <td th:text="${t.name}"></td>
-                        <td th:text="${t.typeDuration}" class="text-capitalize"></td>
-                        <td th:text="${t.duration}"></td>
-                        <td th:text="${t.typeNumberPeople}" class="text-capitalize"></td>
-                        <td th:text="${t.author.fullName}"></td>
-                        <td><a class="btn btn-primary btn-sm" th:href="@{'/admin-trip-details/' + ${t.id}}">View More</a></td>
-                        <!--                            <td>-->
-                        <!--                                <button class="btn btn-primary btn-sm" type="button"-->
-                        <!--                                        onclick="editPermissionModalOpen(this)" th:attr="data-permission-id=${t.id}, data-permission-name=${t.name}" >-->
-                        <!--                                    Edit-->
-                        <!--                                </button>-->
-                        <!--                            </td>-->
-                        <!--                            <td class="d-flex justify-content-end">-->
-                        <!--                                <button class="btn btn-danger btn-sm" type="button"-->
-                        <!--                                        onclick="deletePermissionModalOpen(this)" th:attr="data-permission-id=${t.id}, data-permission-name=${t.name}" >-->
-                        <!--                                    Delete-->
-                        <!--                                </button>-->
-                        <!--                            </td>-->
-                    </tr>
-                    </tbody>
-                </table>
+            <h5 class="text-center col-10 mx-auto pb-2 border-bottom border-1 border-primary">Places displayed on Home page, Tours page and Excursions page</h5>
+
+            <div class="row col-10 mx-auto mt-4 mb-5">
+                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 my-3">
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn fw-bold m-0 p-2 border-secondary border-1" data-bs-toggle="modal" data-bs-target="#assignPlaceShort">
+                        + Add Place
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="assignPlaceShort" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <form th:action="@{'/assignPlacesShort'}" method="post">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="staticBackdropLabel">ASSIGN PLACES</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body p-4">
+                                        <input type="hidden" name="trip_id" th:value="${trip.id}">
+                                        CHOOSE PLACES:
+<!--                                        <select class="form-select my-3" name = "place_short_id">-->
+<!--                                            <option th:each="p : ${places}" th:text="${p.name}" th:value="${p.id}"></option>-->
+<!--                                        </select>-->
+                                        <div class="input-group my-3" th:each="p : ${places}">
+                                            <div class="input-group-text">
+                                                <input class="form-check-input mt-0" type="checkbox" th:value="${p.id}" name="places" aria-label="Checkbox for following text input" th:checked="${placesShort.contains(p)}">
+                                            </div>
+                                            <input type="text" class="form-control" aria-label="Text input with checkbox" th:value="${p.name}" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CLOSE</button>
+                                        <button type="submit" class="btn btn-success">ADD</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 my-3">
+                    <div class="row justify-content-around mt-2">
+                        <div class="bg-primary text-white rounded-3 p-2 me-2 mb-2 col-5 d-flex justify-content-between" th:each="p : ${trip.placesShort}">
+                            <span class="fw-5 fw-semibold" th:text="${p.name}"></span>
+                            <button type="button" class="btn text-white p-0 m-0 fw-bold"
+                                    th:onclick="deletePlaceShortModalOpen(this)"
+                                    th:attr="data-trip=${trip.id}, data-placeShort-id=${p.id}, data-placeShort-name=${p.name}">
+                                X
+                            </button>
+                        </div>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="deletePlaceShortModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <form th:action="@{'/unassignPlaceShort'}" method="post" style="display: inline">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5">Remove Place</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body fw-bold fs-5">
+                                            <input type="hidden" name="trip_id" id="delete_trip_place_short_id">
+                                            <input type="hidden" name="place_short_id" id="place_short_id">
+                                            Do you want to remove <span class="text-danger" id="place_short_name"></span>?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CLOSE</button>
+                                            <button type="submit" class="btn btn-danger">REMOVE</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <script type="text/javascript">
+                            function deletePlaceShortModalOpen(info){
+                                const myDeleteModal = new bootstrap.Modal('#deletePlaceShortModal', {backdrop:true});
+                                document.getElementById("delete_trip_place_short_id").value = info.getAttribute("data-trip");
+                                document.getElementById("place_short_id").value = info.getAttribute("data-placeShort-id");
+                                document.getElementById("place_short_name").innerHTML = info.getAttribute("data-placeShort-name");
+                                myDeleteModal.show();
+                            }
+                        </script>
+                    </div>
+                </div>
             </div>
+
+            <h5 class="text-center col-10 mx-auto pb-2 border-bottom border-1 border-primary">Places displayed in a page of a specific Tour/Excursion</h5>
+
+            <div class="row col-10 mx-auto my-4">
+                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 my-3">
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn fw-bold m-0 p-2 border-secondary border-1" data-bs-toggle="modal" data-bs-target="#assignPlaceLong">
+                        + Add Place
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="assignPlaceLong" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <form th:action="@{'/assignPlacesLong'}" method="post">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5">ASSIGN PLACES</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body p-4">
+                                        <input type="hidden" name="trip_id" th:value="${trip.id}">
+                                        CHOOSE PLACES:
+<!--                                        <select class="form-select my-3" name = "place_long_id">-->
+<!--                                            <option th:each="p : ${places}" th:text="${p.name}" th:value="${p.id}"></option>-->
+<!--                                        </select>-->
+                                        <div class="input-group my-3" th:each="p : ${places}">
+                                            <div class="input-group-text">
+                                                <input class="form-check-input mt-0" type="checkbox" th:value="${p.id}" name="places" aria-label="Checkbox for following text input" th:checked="${placesLong.contains(p)}">
+                                            </div>
+                                            <input type="text" class="form-control" aria-label="Text input with checkbox" th:value="${p.name}" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CLOSE</button>
+                                        <button type="submit" class="btn btn-success">ADD</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 my-3">
+                    <div class="row justify-content-around mt-2">
+                        <div class="bg-primary text-white rounded-3 p-2 me-2 mb-2 col-5 d-flex justify-content-between" th:each="p : ${trip.placesLong}">
+                            <span class="fw-semibold" th:text="${p.name}"></span>
+                            <button type="button" class="btn text-white p-0 m-0 fw-bold"
+                                    th:onclick="deletePlaceLongModalOpen(this)"
+                                    th:attr="data-trip=${trip.id}, data-placeLong-id=${p.id}, data-placeLong-name=${p.name}">
+                                X
+                            </button>
+                        </div>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="deletePlaceLongModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <form th:action="@{'/unassignPlaceLong'}" method="post" style="display: inline">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5">Remove Place</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body fw-bold fs-5">
+                                            <input type="hidden" name="trip_id" id="delete_trip_place_long_id">
+                                            <input type="hidden" name="place_long_id" id="place_long_id">
+                                            Do you want to remove <span class="text-danger" id="place_long_name"></span>?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CLOSE</button>
+                                            <button type="submit" class="btn btn-danger">REMOVE</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <script type="text/javascript">
+                            function deletePlaceLongModalOpen(info){
+                                const myDeleteModal = new bootstrap.Modal('#deletePlaceLongModal', {backdrop:true});
+                                document.getElementById("delete_trip_place_long_id").value = info.getAttribute("data-trip");
+                                document.getElementById("place_long_id").value = info.getAttribute("data-placeLong-id");
+                                document.getElementById("place_long_name").innerHTML = info.getAttribute("data-placeLong-name");
+                                myDeleteModal.show();
+                            }
+                        </script>
+                    </div>
+                </div>
+            </div>
+
+            <h5 class="text-center col-10 mx-auto pb-2 border-bottom border-1 border-primary">Prices</h5>
+
+            <div class="row col-10 mx-auto my-4">
+                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 my-3">
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn fw-bold m-0 p-2 border-secondary border-1" data-bs-toggle="modal" data-bs-target="#addPrice">
+                        + Add Price
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="addPrice" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <form th:action="@{'/addPrice'}" method="post">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5">ADD PRICE</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body p-4">
+                                        <input type="hidden" name="trip_id" th:value="${trip.id}">
+                                        NAME:
+                                        <input class="form-control my-3" name = "name">
+                                        PRICE (in tenge):
+                                        <input class="form-control my-3" name = "price">
+                                        ITEMS:
+<!--                                        <div class="align-items-center my-2" th:each="i : ${items}">-->
+<!--                                            <input type="checkbox" name="items"  th:value="${i.id}" class="form-check-input">-->
+<!--                                            <span class="ms-2 fs-5" th:text="${i.name}"></span>-->
+<!--                                        </div>-->
+                                        <div class="input-group my-3" th:each="i : ${items}">
+                                            <div class="input-group-text">
+                                                <input class="form-check-input mt-0" type="checkbox" th:value="${i.id}" name="items" aria-label="Checkbox for following text input">
+                                            </div>
+                                            <input type="text" class="form-control" aria-label="Text input with checkbox" th:value="${i.name}" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CLOSE</button>
+                                        <button type="submit" class="btn btn-success">ADD</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xxl-8 col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12 my-3">
+                    <div class="row justify-content-around mt-2">
+                        <div class="bg-primary text-white rounded-3 p-3 me-2 mb-2 col-12" th:each="p : ${prices}">
+                            <div class="row">
+                                <span class="fw-semibold me-3 col-8" th:text="${p.name}"></span>
+                                <span class="fw-semibold me-3 col-2" th:text="${p.price} + ' tenge'"></span>
+                                <button type="button" class="btn text-white p-0 m-0 fw-bold col-1"
+                                        th:onclick="deletePriceModalOpen(this)"
+                                        th:attr="data-trip-price=${trip.id}, data-price-id=${p.id}, data-price-name=${p.name}">
+                                    X
+                                </button>
+                            </div>
+                            <div class="my-3 fs-5 text-center p-2 border-bottom border-white border-1">Items</div>
+                            <span th:each="i : ${p.items}" th:text="' - ' + ${i.name}" class="d-block text-center"></span>
+                        </div>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="deletePriceModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <form th:action="@{'/deletePrice'}" method="post" style="display: inline">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5">Remove Price</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body fw-bold fs-5">
+                                            <input type="hidden" name="trip_id" id="delete_trip_price_id">
+                                            <input type="hidden" name="price_id" id="price_id">
+                                            Do you want to remove <span class="text-danger" id="price_name"></span>?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CLOSE</button>
+                                            <button type="submit" class="btn btn-danger">REMOVE</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <script type="text/javascript">
+                            function deletePriceModalOpen(info){
+                                const myDeleteModal = new bootstrap.Modal('#deletePriceModal', {backdrop:true});
+                                document.getElementById("delete_trip_price_id").value = info.getAttribute("data-trip-price");
+                                document.getElementById("price_id").value = info.getAttribute("data-price-id");
+                                document.getElementById("price_name").innerHTML = info.getAttribute("data-price-name");
+                                myDeleteModal.show();
+                            }
+                        </script>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <h5 class="text-center col-10 mx-auto pb-2 border-bottom border-1 border-primary">The paragraphs of the Description part</h5>
+
+            <div class="row col-10 mx-auto my-4">
+                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 my-3">
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn fw-bold m-0 p-2 border-secondary border-1" data-bs-toggle="modal" data-bs-target="#addDescription">
+                        + Add Description
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="addDescription" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <form th:action="@{'/addDescription'}" method="post">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5">ADD DESCRIPTION</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body p-4">
+                                        <input type="hidden" name="trip_id" th:value="${trip.id}">
+                                        PARAGRAPH OF THE TRIP DESCRIPTION:
+<!--                                        <textarea class="form-control my-3" th:each="d : ${descriptions}" th:text="${d.name}" th:value="${d.id}" name="descriptions"></textarea>-->
+                                        <input type="text" class="form-control my-3" name="description_name">
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CLOSE</button>
+                                        <button type="submit" class="btn btn-success">ADD</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xxl-8 col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12 my-3">
+                    <div class="row justify-content-around mt-2">
+                        <div class="bg-primary text-white rounded-3 p-3 me-2 mb-2 col-12" th:each="d : ${descriptions}">
+                            <div class="row">
+                                <p class="fw-semibold me-3 col-10" th:text="${d.name}"></p>
+                                <button type="button" class="btn text-white p-0 m-0 fw-bold col-1"
+                                        th:onclick="deleteDescriptionModalOpen(this)"
+                                        th:attr="data-trip-description=${trip.id}, data-description-id=${d.id}, data-description-name=${d.name}">
+                                    X
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="deleteDescriptionModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <form th:action="@{'/deleteDescription'}" method="post" style="display: inline">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5">Remove Description</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body fw-bold fs-5">
+                                            <input type="hidden" name="trip_id" id="delete_trip_description_id">
+                                            <input type="hidden" name="description_id" id="description_id">
+                                            Do you want to remove <span class="text-danger" id="description_name"></span>?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CLOSE</button>
+                                            <button type="submit" class="btn btn-danger">REMOVE</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <script type="text/javascript">
+                            function deleteDescriptionModalOpen(info){
+                                const myDeleteModal = new bootstrap.Modal('#deleteDescriptionModal', {backdrop:true});
+                                document.getElementById("delete_trip_description_id").value = info.getAttribute("data-trip-description");
+                                document.getElementById("description_id").value = info.getAttribute("data-description-id");
+                                document.getElementById("description_name").innerHTML = info.getAttribute("data-description-name");
+                                myDeleteModal.show();
+                            }
+                        </script>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <form th:action="@{'/updateTrip'}" method="post">
+                <div class="row col-10 mx-auto mt-4 mb-3">
+                    <input type="hidden" th:value="${trip.id}" name="id">
+                    <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 my-3">
+                        <h5>Author:</h5>
+                    </div>
+                    <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 my-3">
+                        <input type="text" class="form-control" th:value="${trip.author.fullName}" disabled>
+                    </div>
+                    <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 my-3">
+                        <h5>Type of the trip based on duration:</h5>
+                    </div>
+                    <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 my-3">
+                        <select name="typeDuration" class="form-select">
+                            <option th:value="tour" th:selected="${trip.typeDuration.equals('tour')}">Tour</option>
+                            <option th:value="excursion" th:selected="${trip.typeDuration.equals('excursion')}">Excursion</option>
+                        </select>
+                    </div>
+                    <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 my-3">
+                        <h5>Type of trip based on the number of people:</h5>
+                    </div>
+                    <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 my-3">
+                        <select name="typeNumberPeople" class="form-select">
+                            <option th:value="group" th:selected="${trip.typeNumberPeople.equals('group')}">Group</option>
+                            <option th:value="individual" th:selected="${trip.typeNumberPeople.equals('individual')}">Individual</option>
+                        </select>
+                    </div>
+                    <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 my-3">
+                        <h5>Name:</h5>
+                    </div>
+                    <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 my-3">
+                        <input type="text" name="name" class="form-control" th:value="${trip.name}" required>
+                    </div>
+                    <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 my-3">
+                        <h5>Nickname:</h5>
+                    </div>
+                    <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 my-3">
+                        <input type="text" name="nickname" class="form-control" th:value="${trip.nickname}" required>
+                    </div>
+                    <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 my-3">
+                        <h5>Picture URL:</h5>
+                    </div>
+                    <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 my-3">
+                        <input type="text" name="picture" class="form-control" th:value="${trip.picture}" required>
+                    </div>
+                    <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 my-3">
+                        <h5>Duration (for excursion in hours & for tour in days):</h5>
+                    </div>
+                    <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 my-3">
+                        <input type="number" name="duration" class="form-control" th:value="${trip.duration}" required>
+                    </div>
+                    <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 my-3">
+                        <h5>Transfer <span class="text-danger">(e.g. bus / suv / plane / by foot)</span>:</h5>
+                    </div>
+                    <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 my-3">
+                        <input type="text" name="transfer" class="form-control" th:value="${trip.transfer}" required>
+                    </div>
+<!--                    <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 my-3">-->
+<!--                        <h5></h5>-->
+<!--                    </div>-->
+<!--                    <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 my-3">-->
+<!--                    </div>-->
+                </div>
+                <div class="row col-10 mx-auto mt-3 mb-5">
+                    <button class="btn btn-success me-3 ms-auto col-2">SAVE</button>
+                    <button class="btn btn-danger ms-3 me-auto col-2" type="button"
+                            onclick="deleteTripModalOpen(this)"
+                            th:attr="data-trip-id=${trip.id}, data-trip-name=${trip.name}">
+                        DELETE</button>
+                </div>
+            </form>
         </main>
     </div>
 </div>
 
-<!-- Edit User Modal -->
-<div class="modal fade" id="editPermission" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <form th:action="@{'/editPermission'}" method="post">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5">Edit permission</h1>
-                    <input type="hidden" name="id" id="permission_id">
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body row align-items-center">
-                    <div class="col-lg-2 col-md-12 col-sm-12 col-12">Permission name: </div>
-                    <div class="col-lg-10 col-md-12 col-sm-12 col-12">
-                        <input type="text" name="permission" id="permission_name" class="form-control mt-2 mb-4" required>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-success">Edit</button>
-                </div>
-            </div>
-        </form>
-    </div>
-</div>
-
-<!-- Delete User Modal -->
-<div class="modal fade" id="deletePermission" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel1" aria-hidden="true">
+<!-- Delete Trip Modal -->
+<div class="modal fade" id="deleteTrip" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel1" aria-hidden="true">
     <div class="modal-dialog">
-        <form th:action="@{'/deletePermission'}" method="post">
+        <form th:action="@{'/deleteTrip'}" method="post">
             <div class="modal-content">
                 <div class="modal-header">
-                    <input type="hidden" name="id" id="permission_delete_id">
+                    <input type="hidden" name="id" id="trip_delete_id">
                     <h1 class="modal-title fs-5" id="staticBackdropLabel1">Are you sure that you want to delete
-                        <span id="permission_delete_name" class="text-danger fw-bold"></span> from database?
+                        <span id="trip_delete_name" class="text-danger fw-bold"></span> from database?
                     </h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
@@ -158,18 +491,11 @@
 </div>
 
 <script type="text/javascript">
-    function editPermissionModalOpen(user){
-        const editPermissionModal = new bootstrap.Modal('#editPermission', {backdrop:true});
+    function deleteTripModalOpen(user){
+        const deletePermissionModal = new bootstrap.Modal('#deleteTrip', {backdrop:true});
 
-        document.getElementById("permission_id").value = user.getAttribute("data-permission-id");
-        document.getElementById("permission_name").value = user.getAttribute("data-permission-name");
-        editPermissionModal.show();
-    }
-    function deletePermissionModalOpen(user){
-        const deletePermissionModal = new bootstrap.Modal('#deletePermission', {backdrop:true});
-
-        document.getElementById("permission_delete_id").value = user.getAttribute("data-permission-id");
-        document.getElementById("permission_delete_name").innerText = user.getAttribute("data-permission-name");
+        document.getElementById("trip_delete_id").value = user.getAttribute("data-trip-id");
+        document.getElementById("trip_delete_name").innerText = user.getAttribute("data-trip-name");
         deletePermissionModal.show();
     }
 </script>

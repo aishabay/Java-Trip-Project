@@ -14,4 +14,6 @@ public interface DescriptionRepository extends JpaRepository<Description, Long> 
 
     List<Description> findAllByTour(Tour tour);
 
+    void deleteAllByTourId(Long id);
+
 }

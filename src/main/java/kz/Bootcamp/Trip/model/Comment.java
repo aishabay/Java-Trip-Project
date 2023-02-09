@@ -27,6 +27,6 @@ public class Comment extends BaseModel{
     @CreationTimestamp
     private LocalDateTime postDate;
 
-//    @Column(name = "count_likes", columnDefinition = "int default 0")
-//    private int countLikes;
+    @Column(columnDefinition = "int default 0")
+    private int countCommentLikes;
 }
