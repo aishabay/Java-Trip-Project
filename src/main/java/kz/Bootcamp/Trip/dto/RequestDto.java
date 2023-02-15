@@ -15,7 +15,7 @@ public class RequestDto {
     private Long id;
     private String name;
     private String email;
-    private String number;
+    private int number;
     private String message;
     private LocalDateTime postDate;
 }

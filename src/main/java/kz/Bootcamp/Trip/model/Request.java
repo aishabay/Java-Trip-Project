@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 public class Request extends BaseModel{
     private String name;
     private String email;
-    private String number;
+    private int number;
 
     @Column(columnDefinition = "text")
     private String message;

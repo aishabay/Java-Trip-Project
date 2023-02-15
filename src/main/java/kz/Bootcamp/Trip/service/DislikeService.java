@@ -17,5 +17,5 @@ public interface DislikeService {
 //    void changeDislikeNumber(Long tour_id);
     int getDislikeNumberByTourId(Long tourId);
 
-
+    void deleteDislikesByTourId(Long id);
 }

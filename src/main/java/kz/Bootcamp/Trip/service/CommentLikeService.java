@@ -17,5 +17,5 @@ public interface CommentLikeService {
 //    void changeCommentLikeNumber(Long tour_id);
     int getCommentLikeNumberByCommentId(Long commentId);
 
-
+    void deleteCommentLikesByCommentId(Long id);
 }

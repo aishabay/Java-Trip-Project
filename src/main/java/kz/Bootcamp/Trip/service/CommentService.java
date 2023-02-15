@@ -16,4 +16,6 @@ public interface CommentService {
 
     int getCommentNumberByTourId(Long tourId);
 
+    void deleteCommentsByTourId(Long id);
+
 }

@@ -67,6 +67,11 @@ public class CommentLikeServiceImpl implements CommentLikeService {
     public List<CommentLikeDto> getAllCommentLikesByCommentIdDto(Long commentId) {
         return commentLikeMapper.toDtoList(getAllCommentLikesByCommentId(commentId));
     }
+
+    @Override
+    public void deleteCommentLikesByCommentId(Long id) {
+        commentLikeRepository.deleteAllByCommentId(id);
+    }
 }
 
 

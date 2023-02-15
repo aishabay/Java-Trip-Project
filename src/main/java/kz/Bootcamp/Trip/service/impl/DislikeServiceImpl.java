@@ -70,6 +70,11 @@ public class DislikeServiceImpl implements DislikeService {
     public List<DislikeDto> getAllDislikesByTourIdDto(Long tourId) {
         return dislikeMapper.toDtoList(getAllDislikesByTourId(tourId));
     }
+
+    @Override
+    public void deleteDislikesByTourId(Long id) {
+        dislikeRepository.deleteAllByTourId(id);
+    }
 }
 
 

@@ -20,4 +20,6 @@ public interface DislikeRepository extends JpaRepository<Dislike,Long> {
 
     @Query(value="select count(d.tour.id) from Dislike d where d.tour.id = :tourId")
     int findDislikeNumberByTourId(@Param("tourId") Long key);
+
+    void deleteAllByTourId(Long id);
 }

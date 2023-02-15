@@ -17,5 +17,5 @@ public interface LikeService {
 //    void changeLikeNumber(Long tour_id);
     int getLikeNumberByTourId(Long tourId);
 
-
+    void deleteLikesByTourId(Long id);
 }

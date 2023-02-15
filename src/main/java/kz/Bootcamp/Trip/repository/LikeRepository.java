@@ -21,4 +21,6 @@ public interface LikeRepository extends JpaRepository<Like,Long> {
 
     @Query(value="select count(l.tour.id) from Like l where l.tour.id = :tourId")
     int findLikeNumberByTourId(@Param("tourId") Long key);
+
+    void deleteAllByTourId(Long id);
 }

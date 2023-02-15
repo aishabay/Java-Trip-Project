@@ -145,7 +145,7 @@ main.tour-list{
     /* background-image: url(https://wallpapercave.com/wp/wp7111843.jpg); */
     /* background-size: cover; */
     /* background-color: white; */
-    height: 80vh;
+    min-height: 80vh;
     width: 100vw;
     margin-top: 8vh;
 }

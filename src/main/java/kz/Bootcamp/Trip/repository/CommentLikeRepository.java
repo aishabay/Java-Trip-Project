@@ -21,4 +21,6 @@ public interface CommentLikeRepository extends JpaRepository<CommentLike,Long> {
 
     @Query(value="select count(l.comment.id) from CommentLike l where l.comment.id = :commentId")
     int findCommentLikeNumberByCommentId(@Param("commentId") Long key);
+
+    void deleteAllByCommentId(Long id);
 }

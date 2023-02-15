@@ -73,6 +73,11 @@ public class LikeServiceImpl implements LikeService {
     public List<LikeDto> getAllLikesByTourIdDto(Long tourId) {
         return likeMapper.toDtoList(getAllLikesByTourId(tourId));
     }
+
+    @Override
+    public void deleteLikesByTourId(Long id) {
+        likeRepository.deleteAllByTourId(id);
+    }
 }
 
 

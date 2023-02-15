@@ -18,4 +18,6 @@ public interface CommentRepository extends JpaRepository<Comment,Long> {
     @Query(value="select count(c.tour.id) from Comment c where c.tour.id = :tourId")
     int findCommentNumberByTourId(@Param("tourId") Long tourId);
 
+    void deleteAllByTourId(Long id);
+
 }

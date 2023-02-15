@@ -10,13 +10,9 @@ import kz.Bootcamp.Trip.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.awt.print.Pageable;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -26,7 +22,6 @@ public class TourServiceImpl implements TourService {
     private final TourRepository tourRepository;
 
     private final TourRepositoryImpl tourRepositoryImpl;
-//    private final UserMapper userMapper;
     private final TourMapper tourMapper;
     private final UserService userService;
     @Autowired
@@ -36,15 +31,22 @@ public class TourServiceImpl implements TourService {
     @Lazy
     private DescriptionService descriptionService;
 
+    @Autowired
+    @Lazy
+    private CommentService commentService;
+
+    @Autowired
+    @Lazy
+    private LikeService likeService;
+
+    @Autowired
+    @Lazy
+    private DislikeService dislikeService;
+
     @Override
     public List<Tour> getAllTours() {
         return tourRepository.findAllByTypeDurationIsContaining("tour");
     }
-
-//    @Override
-//    public List<Tour> getAllToursHome() {
-//        return tourRepository.findAllTripsHome("tour");
-//    }
 
     @Override
     public List<Tour> getAllToursHome() {
@@ -105,9 +107,12 @@ public class TourServiceImpl implements TourService {
             List<Place> placesLong = new ArrayList<>();
             tour.setPlacesShort(placesShort);
             tour.setPlacesLong(placesLong);
+            updateTour(tour);
             priceService.deletePricesByTourId(id);
             descriptionService.deleteDescriptionsByTourId(id);
-            updateTour(tour);
+            commentService.deleteCommentsByTourId(id);
+            likeService.deleteLikesByTourId(id);
+            dislikeService.deleteDislikesByTourId(id);
             tourRepository.deleteById(id);
         }
     }
