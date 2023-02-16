@@ -1,7 +1,6 @@
 package kz.Bootcamp.Trip.api;
 
 import kz.Bootcamp.Trip.dto.PriceDto;
-import kz.Bootcamp.Trip.model.Price;
 import kz.Bootcamp.Trip.service.PriceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;

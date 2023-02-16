@@ -1,6 +1,5 @@
 package kz.Bootcamp.Trip.controller;
 
-import javassist.runtime.Desc;
 import kz.Bootcamp.Trip.model.*;
 import kz.Bootcamp.Trip.service.*;
 import lombok.RequiredArgsConstructor;
@@ -36,13 +35,11 @@ public class MainController {
 
     @GetMapping(value ="/tour")
     public String tour_list(Model model){
-//        model.addAttribute("tours", tourService.getAllTours());
         return "tour-list";
     }
 
     @GetMapping(value ="/excursion")
     public String excursion_list(Model model){
-//        model.addAttribute("tours", tourService.getAllTours());
         return "excursion-list";
     }
 
@@ -53,8 +50,6 @@ public class MainController {
 
     @GetMapping(value ="/tour/{id}")
     public String tour(Model model, @PathVariable(name = "id") Long id){
-//        model.addAttribute("tour", tourService.getTour(id));
-//        model.addAttribute("desc", tourService.getTourDesc(id));
         model.addAttribute("id", id);
         return "tour";
     }
@@ -62,7 +57,6 @@ public class MainController {
     @GetMapping(value ="/excursion/{id}")
     public String excursion(Model model, @PathVariable(name = "id") Long id){
         model.addAttribute("tour", tourService.getTour(id));
-//        model.addAttribute("desc", tourService.getTourDesc(id));
         model.addAttribute("id", id);
         return "tour";
     }
@@ -79,15 +73,10 @@ public class MainController {
     }
 
     @GetMapping(value="/admin")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR')")
     public String admin(Model model){
         return "admin-panel/admin";
     }
-
-//    @GetMapping(value="/admin")
-//    public String admin(Model model){
-//        return "admin-panel/admin";
-//    }
 
     @GetMapping(value="/admin-users")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
@@ -125,7 +114,6 @@ public class MainController {
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     public String adminPermissions(Model model){
         model.addAttribute("permissions", permissionService.getAllPermissions());
-//        model.addAttribute("users", userService.getAllUsers());
         return "admin-panel/permissions";
     }
 
@@ -152,14 +140,14 @@ public class MainController {
     }
 
     @GetMapping(value = "/admin-trips")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR')")
     public String adminTrips(Model model){
         model.addAttribute("trips", tourService.getAllTrips());
         return "admin-panel/trips";
     }
 
     @GetMapping(value = "/admin-trips/{id}")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR')")
     public String adminTripDetails(@PathVariable(name="id") Long tripId, Model model){
         model.addAttribute("trip", tourService.getTrip(tripId));
         model.addAttribute("places", placeService.getAllPlaces());
@@ -172,7 +160,7 @@ public class MainController {
     }
 
     @PostMapping(value = "addTrip")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR')")
     public String addTrip(Tour tour){
         tourService.addTour(tour);
         return "redirect:/admin-trips";
@@ -186,7 +174,7 @@ public class MainController {
 //    }
 
     @PostMapping(value = "/assignPlacesShort")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR')")
     public String assignPlaceShort(@RequestParam(name="trip_id") Long tripId,
                                    @RequestParam(name="places") List<Place> places){
         placeService.assignPlacesShort(tripId, places);
@@ -194,7 +182,7 @@ public class MainController {
     }
 
     @PostMapping(value = "/unassignPlaceShort")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR')")
     public String unassignPlaceShort(@RequestParam(name = "trip_id") Long tripId,
                                      @RequestParam(name="place_short_id") Long placeId){
         placeService.unassignPlaceShort(tripId, placeId);
@@ -209,7 +197,7 @@ public class MainController {
 //    }
 
     @PostMapping(value = "/assignPlacesLong")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR')")
     public String assignPlaceLong(@RequestParam(name = "trip_id") Long tripId,
                                   @RequestParam(name="places") List<Place> places){
         placeService.assignPlacesLong(tripId, places);
@@ -217,7 +205,7 @@ public class MainController {
     }
 
     @PostMapping(value = "/unassignPlaceLong")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR')")
     public String unassignPlaceLong(@RequestParam(name = "trip_id") Long tripId,
                                     @RequestParam(name="place_long_id") Long placeId){
         placeService.unassignPlaceLong(tripId, placeId);
@@ -225,7 +213,7 @@ public class MainController {
     }
 
     @PostMapping(value = "/addPrice")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR')")
     public String unassignPlaceLong(@RequestParam(name = "trip_id") Long tripId,
                                     Price price,
                                     @RequestParam(name = "items") List<Item> items){
@@ -235,7 +223,7 @@ public class MainController {
     }
 
     @PostMapping(value = "/deletePrice")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR')")
     public String deletePrice(@RequestParam(name = "trip_id") Long tripId,
                               @RequestParam(name = "price_id") Long priceId){
         priceService.deletePrice(priceId);
@@ -243,7 +231,7 @@ public class MainController {
     }
 
     @PostMapping(value = "/addDescription")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR')")
     public String assignDescriptions(@RequestParam(name = "trip_id") Long tripId,
                                   @RequestParam(name="description_name") String descriptionName){
         descriptionService.assignDescription(tripId, descriptionName);
@@ -251,7 +239,7 @@ public class MainController {
     }
 
     @PostMapping(value = "/deleteDescription")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR')")
     public String deleteDescription(@RequestParam(name = "trip_id") Long tripId,
                               @RequestParam(name = "description_id") Long descriptionId){
         descriptionService.deleteDescription(descriptionId);
@@ -259,7 +247,7 @@ public class MainController {
     }
 
     @PostMapping(value = "/updateTrip")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR')")
     public String updateTrip(@RequestParam(name = "id") Long id,
                              @RequestParam(name = "typeDuration") String typeDuration,
                              @RequestParam(name = "typeNumberPeople") String typeNumberPeople,
@@ -273,98 +261,98 @@ public class MainController {
     }
 
     @PostMapping(value = "/deleteTrip")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR')")
     public String deleteTrip(@RequestParam(name = "id") Long id){
         tourService.deleteTour(id);
         return "redirect:/admin-trips";
     }
 
     @GetMapping(value = "/admin-places")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR')")
     public String adminPlaces(Model model){
         model.addAttribute("places", placeService.getAllPlaces());
         return "admin-panel/places";
     }
 
     @PostMapping(value = "/addPlace")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR')")
     public String addPlace(Place place){
         placeService.addPlace(place);
         return "redirect:/admin-places";
     }
 
     @PostMapping(value = "/editPlace")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR')")
     public String editPlace(Place place){
         placeService.updatePlace(place);
         return "redirect:/admin-places";
     }
 
     @PostMapping(value = "/deletePlace")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR')")
     public String deletePlace(@RequestParam(name="id") Long placeId){
         placeService.deletePlace(placeId);
         return "redirect:/admin-places";
     }
 
     @GetMapping(value = "/admin-items")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR')")
     public String adminItems(Model model){
         model.addAttribute("items", itemService.getAllItems());
         return "admin-panel/items";
     }
 
     @PostMapping(value = "/addItem")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR')")
     public String addItem(Item item){
         itemService.addItem(item);
         return "redirect:/admin-items";
     }
 
     @PostMapping(value = "/editItem")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR')")
     public String editItem(Item item){
         itemService.updateItem(item);
         return "redirect:/admin-items";
     }
 
     @PostMapping(value = "/deleteItem")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR')")
     public String deleteItem(@RequestParam(name="id") Long itemId){
         itemService.deleteItem(itemId);
         return "redirect:/admin-items";
     }
 
     @GetMapping(value = "/admin-requests")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR')")
     public String adminRequests(Model model){
         model.addAttribute("requests", requestService.getAllRequests());
         return "admin-panel/requests";
     }
 
     @PostMapping(value = "/addRequest")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR')")
     public String addRequest(Request request){
         requestService.addRequest(request);
         return "redirect:/admin-requests";
     }
 
     @PostMapping(value = "/editRequest")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR')")
     public String editRequest(Request request){
         requestService.updateRequest(request);
         return "redirect:/admin-requests";
     }
 
     @PostMapping(value = "/deleteRequest")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR')")
     public String deleteRequest(@RequestParam(name="id") Long requestId){
         requestService.deleteRequest(requestId);
         return "redirect:/admin-requests";
     }
 
     @GetMapping(value = "/admin-orders")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR')")
     public String adminOrders(Model model){
         model.addAttribute("orders", orderService.getAllOrders());
         model.addAttribute("tours", tourService.getAllTrips());
@@ -372,21 +360,21 @@ public class MainController {
     }
 
     @PostMapping(value = "/addOrder")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR')")
     public String addOrder(Order order){
         orderService.addOrder(order);
         return "redirect:/admin-orders";
     }
 
     @PostMapping(value = "/editOrder")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR')")
     public String editRequest(Order order){
         orderService.updateOrder(order);
         return "redirect:/admin-orders";
     }
 
     @PostMapping(value = "/deleteOrder")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR')")
     public String deleteOrder(@RequestParam(name="id") Long orderId){
         orderService.deleteOrder(orderId);
         return "redirect:/admin-orders";
@@ -438,16 +426,4 @@ public class MainController {
         model.addAttribute("tours", tourService.getToursSearchDto(key,order));
         return "search";
     }
-
-//    @GetMapping(value = "/search")
-//    public String search(){
-////        model.addAttribute("tours", tourService.getToursSearch(key,order));
-//        return "search";
-//    }
-
-//    @PostMapping(value = "/addRequest")
-//    public String addRequest(Request request){
-//        requestService.addRequest(request);
-//        return "redirect:/contacts";
-//    }
 }

@@ -1,7 +1,5 @@
 package kz.Bootcamp.Trip.dto;
 
-import kz.Bootcamp.Trip.model.Item;
-import kz.Bootcamp.Trip.model.Tour;
 import lombok.Getter;
 import lombok.Setter;
 

@@ -1,7 +1,6 @@
 package kz.Bootcamp.Trip.api;
 
 import kz.Bootcamp.Trip.dto.PlaceDto;
-import kz.Bootcamp.Trip.model.Place;
 import kz.Bootcamp.Trip.service.PlaceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;

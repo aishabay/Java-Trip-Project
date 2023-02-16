@@ -1,7 +1,6 @@
 package kz.Bootcamp.Trip.api;
 
 import kz.Bootcamp.Trip.service.DislikeService;
-import kz.Bootcamp.Trip.service.TourService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,12 +10,6 @@ import org.springframework.web.bind.annotation.*;
 public class DislikeController {
 
     private final DislikeService dislikeService;
-    private final TourService tourService;
-
-//    @GetMapping(value="{tourId}")
-//    public List<DislikeDto> getAllDislikesByTourId(@PathVariable(name="tourId") Long tourId){
-//        return dislikeService.getAllDislikesByTourIdDto(tourId);
-//    }
 
     @GetMapping(value = "{tourId}")
     public int getDislikeNumberByTourId(@PathVariable(name="tourId") Long tourId){
@@ -26,7 +19,6 @@ public class DislikeController {
     @PutMapping(value="{tourId}")
     public int updateDislikes(@PathVariable(name="tourId") Long tourId){
         dislikeService.addOrDeleteDislike(tourId);
-//        int numberOfDislikesOfTour = tourService.getTour(tourId).getCountDislikes();
         return dislikeService.getDislikeNumberByTourId(tourId);
     }
 

@@ -24,30 +24,11 @@ public class Tour extends BaseModel{
     @ManyToMany(fetch = FetchType.LAZY)
     private List<Place> placesLong; // Many To Many
 
-//    private String placesShort;
-//    private String placesLong;
-
     private String transfer; //(bus / suv / plane / by foot)
     private String typeNumberPeople; //(group / individual)
 
-//    @Column(columnDefinition = "text")
-//    private String description;
-
-//    @Column(name = "type")
-//    private TourType type;
-
-//    @Column(columnDefinition = "text")
-//    private String priceDescription;
-
     private String typeDuration; //(tour / excursion)
-
     private String daysHours;
-
-//    @ManyToOne(fetch = FetchType.EAGER)
-//    private Trip trip; //(tour / excursion)
-
-//    @Column(columnDefinition = "text")
-//    private String images;
 
     @ManyToOne(fetch = FetchType.EAGER)
     private User author;
@@ -57,12 +38,6 @@ public class Tour extends BaseModel{
 
     private String picture;
 
-    //    @Formula("(select count(user_id) from t_likes l where l.tour_id = tour_id)")
     @Column(columnDefinition = "int default 0")
     private int countLikes;
-
-//    private Boolean isLiked(){
-//        return getCountLikes() > 0;
-//    }
-
 }

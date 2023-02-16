@@ -1,10 +1,8 @@
 package kz.Bootcamp.Trip.api;
 
 import kz.Bootcamp.Trip.dto.TourDto;
-import kz.Bootcamp.Trip.model.Tour;
 import kz.Bootcamp.Trip.service.TourService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,11 +28,6 @@ public class TourController {
     public TourDto getTourById(@PathVariable(name = "id") Long id){
         return tourService.getTourDto(id);
     }
-
-//    @GetMapping(value = "{id}/desc")
-//    public List<String> getTourDescById(@PathVariable(name = "id") Long id){
-//        return tourService.getTourDesc(id);
-//    }
 
     @PostMapping
     public TourDto addTour(@RequestBody TourDto tour){
